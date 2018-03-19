@@ -15,21 +15,24 @@
     <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>  --><!-- 會產生下拉框不反應的問題 -->
 
-
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- 搜索框 -->
     <link href="{% static 'mycss_js/mycss.css' %}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{% static 'mycss_js/myjs.js' %}"></script>
 
+
+
+
 </head>
 <body>
-<!--sidebar-->
 
-    <div id="wrapper" style="width: 500px;">
+
+
+<!-- Sidebar *************************************-->
+    <div id="wrapper">
         <div class="overlay"></div>
-    
-        <!-- Sidebar -->
         <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
             <ul class="nav sidebar-nav">
-                <li class="sidebar-brand"><a href="#">Brand</a></li>
+                <li class="sidebar-brand"><a href="#">话题</a></li>
                 <li><a href="#">Home</a></li>
                 <li><a href="#">About</a></li>
                 <li><a href="#">Events</a></li>
@@ -50,20 +53,91 @@
                 <li><a href="https://twitter.com/maridlcrmn">Follow me</a></li>
             </ul>
         </nav>
-        <!-- /#sidebar-wrapper -->
-<!--sidebar-->
+        <!-- /#sidebar-wrapper **************************************************-->
 
-
-
-        <div id="page-content-wrapper">
+<!-- Page Content -->
+<div id="page-content-wrapper">
+            <!-- 导航条显示按钮 -->
             <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
                 <span class="hamb-top"></span>
                 <span class="hamb-middle"></span>
                 <span class="hamb-bottom"></span>
             </button>
 
-                         {% block content %} {% endblock %}
 
+<!-- nav -->
+    <div class="container">
+        <nav class="navbar  navbar-static-top">
+            <div class="container" style="margin-top: 10px">
+                <div class="navbar-header" >
+                    <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+                    </button>
+                    <a class="navbar-brand" href="#" style="font-size:40px;color: black">
+                        Learning Log
+                    </a>
+                </div>
+                <div class="navbar-brand-centered" style="background-color: white">
+                    <ul class="nav navbar-nav">
+                        <li class="search bar7">
+                              <form action="/learning_log/search/" method="post" style="padding: 3px">
+                                <input name='search' type="text" placeholder="请输入您要搜索的内容..." >
+                                <button class="search" type="submit" ></button>
+                              </form>
+                        </li>
+                    </ul>
+                </div>
+                <div class=" navbar-nav navbar-right dropdown" style="color: black;font-size: 20px;margin-top:10px">
+                            
+                    <div class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></div>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                      </ul>
+                                
+                </div>
+            </div>
+        </nav>
+    </div>
+
+<!-- /#wrapper -->
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2>含泪播种的人，必能含笑收获。</h1>
+                </div>
+                <div class="blogShort">
+                    <h1>
+                        神盾局丰厚的手机号覅上进东南方快叫神盾局粉红色肯德基和防空军
+                    </h1>
+                    <h3>爱上京东方hiusd合肥收到您付款sd卡金凤凰铠角兽到合肥</h3>
+                </div>
+
+                <!-- 段落样式 -->
+                <div class="blogShort">
+                     <h1>Title 1</h1>
+                     <img src="http://www.kaczmarek-photo.com/wp-content/uploads/2012/06/guinnes-150x150.jpg" alt="post img" class="pull-left img-responsive thumb margin10 img-thumbnail">
+                     
+                         <em>This snippet use <a href="http://bootsnipp.com/snippets/featured/sexy-sidebar-navigation" target="_blank">Sexy Sidebar Navigation</a></em>
+                     <article><p>
+                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                         ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only 
+                         five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release
+                         of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of
+                         Lorem Ipsum.    
+                         </p></article>
+                     <a class="btn btn-blog pull-right marginBottom10" href="#">READ MORE</a> 
+                 </div>
         </div>
+
+    </div>
+</div>
+</div>
 </body>
 </html>
+
+
+

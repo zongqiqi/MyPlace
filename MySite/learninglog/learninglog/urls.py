@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 
+admin.autodiscover()  #若应用有admin.py，使用app的admin
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('learnlogs/',include('learnlogs.urls')),
