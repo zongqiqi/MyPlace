@@ -1,0 +1,23 @@
+{% extends "learnlogs/base.html" %}
+
+
+{% block sidebar%}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2><a href="{% url 'learnlogs:topic' entry.topic.id%}">{{entry.topic}}</a> -- {{entry.name}}</h2>
+                    <br>
+                    <small>{{ entry.date_added }}  &nbsp;&nbsp;<a href="{% url 'learnlogs:edit_entry' entry.id %}"> Edit entry</a></small>
+                </div>
+                <div class="col-md-12 blogShort">
+                    {{ entry.text |safe }}
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

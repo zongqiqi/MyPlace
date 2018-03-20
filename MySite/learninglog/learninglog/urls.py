@@ -21,4 +21,5 @@ admin.autodiscover()  #若应用有admin.py，使用app的admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('learnlogs/',include('learnlogs.urls')),
+    path('learnlogs/',include('users.urls')),
 ]

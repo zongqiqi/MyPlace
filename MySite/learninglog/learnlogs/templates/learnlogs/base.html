@@ -19,9 +19,6 @@
     <link href="{% static 'mycss_js/mycss.css' %}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{% static 'mycss_js/myjs.js' %}"></script>
 
-
-
-
 </head>
 <body>
 
@@ -33,7 +30,13 @@
         <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
             <ul class="nav sidebar-nav">
                 <li class="sidebar-brand"><a href="{% url 'learnlogs:index' %}">主题</a></li>
-                {% block sidebar %} {% endblock %}
+                    {% for topic in all_topic %}
+                        <li><a href="{% url 'learnlogs:topic' topic.id %}">{{ topic }}</a></li>
+                    {% empty %}
+                        <li>No topics have been added yet! </li>
+                    {% endfor %}
+                    {% block sidebar %}  
+                    {% endblock %}                
             </ul>
         </nav>
         <!-- /#sidebar-wrapper **************************************************-->

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #我的应用
     'learnlogs',
+    'users',  #用户系统
 ]
 
 MIDDLEWARE = [
