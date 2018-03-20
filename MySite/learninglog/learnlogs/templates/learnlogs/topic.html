@@ -1,0 +1,33 @@
+{% extends "learnlogs/base.html" %}
+
+
+{% block sidebar%}
+    {% for topic in topics %}
+    <li><a href="{% url 'learnlogs:topic' topic.id %}">{{ topic }}</a></li>
+    {% empty %}
+    <li>No topics have been added yet! </li>
+    {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2>{{topic}}</h2>
+                </div>
+                {% for entry in entries %}
+                    <div class="col-md-12 blogShort">
+                        <h2>{{ entry.name }}</h2>
+                        <em>{{ entry.date_added }}</em>
+                        <p>{{entry.text|truncatewords:"30"}}</p>
+                        <a class="btn btn-blog pull-right marginBottom10" href="#">READ MORE</a> 
+                    </div>
+                {% empty %}
+                    <h2>There is no Entries in this topic</h2>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

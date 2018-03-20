@@ -120,6 +120,15 @@ html { height: 100%;}
 .sidebar-nav li:nth-child(9):before {
     background-color: #35acdf;   
 }
+.sidebar-nav li:nth-child(10):before {
+    background-color: #314190;   
+}
+.sidebar-nav li:nth-child(11):before {
+    background-color: #279636;   
+}
+.sidebar-nav li:nth-child(12):before {
+    background-color: #7d5d81;   
+}
 .sidebar-nav li:hover:before,
 .sidebar-nav li.open:hover:before {
     width: 100%;

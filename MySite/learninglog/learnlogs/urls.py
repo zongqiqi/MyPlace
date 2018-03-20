@@ -16,7 +16,9 @@ Including another URLconf
 from django.urls import path
 from . import views
 
+app_name='learnlogs'
 urlpatterns = [
     path('',views.index,name='index'),
+    path('topic/<int:topic_id>',views.topic,name='topic'),
     path('test',views.test,name='test'),
 ]
