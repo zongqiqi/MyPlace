@@ -8,6 +8,14 @@ html { height: 100%;}
 .nav .open > a:hover, 
 .nav .open > a:focus {background-color: transparent;}
 
+
+/*下拉框*/
+.mega-dropdown-menu  a:hover,
+.mega-dropdown-menu  a:focus {
+  text-decoration: none;
+}
+
+
 /*-------------------------------*/
 /*           Wrappers            */
 /*-------------------------------*/
@@ -388,4 +396,65 @@ input, button {
     color: white;
     background-color:#34ca78;
     border-color: #34ca78;
+}
+
+
+
+/*log-in  form*/
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+/*  background-color: #f3f3f3;*/
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
+  font-weight: normal;
+}
+.form-signin .form-control {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  font: 15px 'Segoe UI',Arial,sans-serif;
+  background-color: #EAEBE5;
+  height: auto;
+  padding: 10px;
+  color:#7e8c8d;
+  outline:none;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+#recover input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+/*登陆后的下拉框不显示<a>的特性*/
+a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dropdown-toggle:active {
+    text-decoration: none;
 }

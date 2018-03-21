@@ -12,7 +12,8 @@ from .models import Topic,Entry
 class NewTopicForm(forms.Form):
     """在index页面添加新的Topic   （ps：stupid写法，NewEntryForm is wise）"""
     name=forms.CharField(widget=forms.TextInput(attrs={'style': 
-        'background-color: #1c1c1c;color: white','placeholder':'请输入新主题'}),error_messages={'required': 'Please enter somethong'})
+        'background-color: #1c1c1c;color: white','placeholder':'请输入新主题'}),
+        error_messages={'required': 'Please enter somethong'})
 
 class NewEntryForm(forms.ModelForm):
     class Meta:

@@ -19,6 +19,8 @@
     <link href="{% static 'mycss_js/mycss.css' %}" rel="stylesheet" type="text/css">
     <script type="text/javascript" src="{% static 'mycss_js/myjs.js' %}"></script>
 
+    {% block head %}{% endblock %}
+
 </head>
 <body>
 
@@ -33,7 +35,7 @@
                     {% for topic in all_topic %}
                         <li><a href="{% url 'learnlogs:topic' topic.id %}">{{ topic }}</a></li>
                     {% empty %}
-                        <li>No topics have been added yet! </li>
+                        <li style="color: white">No topics have been added yet! </li>
                     {% endfor %}
                     {% block sidebar %}  
                     {% endblock %}                
@@ -72,17 +74,40 @@
                         </li>
                     </ul>
                 </div>
-                <div class=" navbar-nav navbar-right dropdown" style="color: black;font-size: 20px;margin-top:10px">
-                            
-                    <div class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></div>
-                      <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                      </ul>
-                                
+
+
+
+
+                <!-- 账户表单 -->
+                <div class=" navbar-nav navbar-right" style="color: black;font-size: 20px;margin-top:10px">
+                {% if user.is_authenticated %}
+
+
+<!--                     <div class="dropdown">
+                        <div class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">{{ user.username }}<span class="caret"></span></div>
+                        <ul class="dropdown-menu" role="menu" >
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  Log-out</a></li>
+                      </ul> 
+                    </div>   -->
+                    <li class="dropdown" style="list-style: none">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1a1a1a">{{ user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  Log-out</a></li>
+                        </ul>
+                    </li>
+
+
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'users:login' %}" style="color: #1c1c1c">Log-in</a>  
+                {% endif %}
                 </div>
             </div>
         </nav>

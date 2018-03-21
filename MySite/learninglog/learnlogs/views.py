@@ -75,7 +75,7 @@ def edit_entry(request,entry_id):
     if request.method != 'POST':
         form = NewEntryForm(instance=entry)   #与新建条目的唯一差别
     else:
-        form=NewEntryForm(data=request.POST)
+        form=NewEntryForm(instance=entry,data=request.POST)  ##绑定到数据模型，防止重复添加
         if form.is_valid():
             new_entry=form.save(commit=False)
             new_entry.topic=topic
