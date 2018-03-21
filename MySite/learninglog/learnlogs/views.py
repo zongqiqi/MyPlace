@@ -7,6 +7,8 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 from .models import Topic,Entry
 from .forms import NewTopicForm,NewEntryForm
@@ -30,6 +32,7 @@ def index(request):
     context={'all_topic':all_topic,'form':form,'entries':entries}
     return render(request,"learnlogs/index.html",context)
 
+@login_required
 def topic(request,topic_id):
     """特定主题页面"""
     topic=Topic.objects.get(id=topic_id)
@@ -52,6 +55,7 @@ def entry(request,entry_id):
     context={'entry':entry,'all_topic':all_topic}
     return render(request,"learnlogs/entry.html",context)
 
+@login_required
 def new_entry(request,topic_id):
     """新条目页面"""
     topic=Topic.objects.get(id=topic_id)
@@ -68,7 +72,9 @@ def new_entry(request,topic_id):
     context={'topic':topic,'form':form,'all_topic':all_topic}
     return render(request,'learnlogs/new_entry.html',context)
 
+@login_required
 def edit_entry(request,entry_id):
+    """对已有的条目进行编辑、修改"""
     entry=Entry.objects.get(id=entry_id)
     topic=entry.topic
     all_topic=Topic.objects.order_by('date_added')
@@ -84,6 +90,15 @@ def edit_entry(request,entry_id):
     context={'topic':topic,'form':form,'all_topic':all_topic,'entry':entry}
     return render(request,'learnlogs/edit_entry.html',context)
 
+def search(request):
+    """搜索页面"""
+    all_topic=Topic.objects.order_by('date_added')
+    if request.method=='POST':
+        form_data=request.POST['search']
+
+        entries=Entry.objects.filter(Q(text__icontains=form_data) | Q(name__icontains=form_data)).order_by('-date_added')
+    context={'entries':entries,'all_topic':all_topic,'search':form_data} 
+    return render(request,'learnlogs/search.html',context)
 
 #testttttttttttttttttttttttttttttttttttttttttttttttt
 def test(request):

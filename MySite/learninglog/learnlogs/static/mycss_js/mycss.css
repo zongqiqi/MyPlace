@@ -411,9 +411,7 @@ input, button {
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
-.form-signin .checkbox {
-  font-weight: normal;
-}
+
 .form-signin .form-control {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -431,6 +429,7 @@ input, button {
   -webkit-box-sizing: border-box;
      -moz-box-sizing: border-box;
           box-sizing: border-box;
+  margin-bottom: 5px;
 }
 
 .form-signin .form-control:focus {
@@ -446,6 +445,7 @@ input, button {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
 
 #recover input[type="email"] {
   margin-bottom: 10px;

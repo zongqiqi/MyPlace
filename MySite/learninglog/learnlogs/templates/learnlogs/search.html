@@ -1,0 +1,24 @@
+{% extends "learnlogs/base.html" %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2>搜索 ： {{search}}</h2>
+                </div>
+                {% for entry in entries %}
+                <div class="col-md-12 blogShort">
+                        <h2>{{ entry.name }}</h2>
+                        <em>{{ entry.date_added }}</em>
+                        <p class="pam">{{entry.text|truncatewords:"30"}}</p>
+                        <a class="btn btn-blog pull-right marginBottom10" href="{% url 'learnlogs:entry' entry.id %}">READ MORE</a> 
+                </div>
+                {% empty %}
+                    <h2>There is no Entries in this topic</h2>
+                {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

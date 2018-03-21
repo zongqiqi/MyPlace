@@ -126,3 +126,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#未登录用户执行@login_required的操作是，重定向登陆页面
+LOGIN_URL = '/users/login'

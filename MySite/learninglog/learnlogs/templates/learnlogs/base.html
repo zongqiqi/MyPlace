@@ -67,7 +67,8 @@
                 <div class="navbar-brand-centered" style="background-color: white">
                     <ul class="nav navbar-nav">
                         <li class="search bar7">
-                              <form action="/learning_log/search/" method="post" style="padding: 3px">
+                              <form action="{% url 'learnlogs:search' %}" method="post" style="padding: 3px">
+                                {% csrf_token %}
                                 <input name='search' type="text" placeholder="请输入您要搜索的内容..." >
                                 <button class="search" type="submit" ></button>
                               </form>
@@ -106,7 +107,9 @@
 
 
                 {% else %}
-                    <a class="navbar-brand" href="{% url 'users:login' %}" style="color: #1c1c1c">Log-in</a>  
+                    <a class="navbar-brand" href="{% url 'users:login' %}" style="color: #1c1c1c">Log-in</a>
+                    <a class="navbar-brand" href="#" style="color: #1c1c1c">-</a>
+                    <a class="navbar-brand" href="{% url 'users:register' %}" style="color: #1c1c1c">Register</a>
                 {% endif %}
                 </div>
             </div>

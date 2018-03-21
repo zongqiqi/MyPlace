@@ -22,7 +22,8 @@ urlpatterns = [
     path('topic/<int:topic_id>',views.topic,name='topic'),                  ##主题页面
     path('entry/<int:entry_id>',views.entry,name='entry'),                  ##条目页面
     path('new_entry/<int:topic_id>',views.new_entry,name='new_entry'),      ##新建条目页面
-    path('edit_entry/<int:entry_id>',views.edit_entry,name='edit_entry'),      ##新建条目页面
+    path('edit_entry/<int:entry_id>',views.edit_entry,name='edit_entry'),      ##编辑条目页面
+    path('search',views.search,name='search'),      ##搜索页面
     
     path('test',views.test,name='test'),                                    ##测试
 ]

@@ -30,8 +30,9 @@
             <form class="form-signin" action="{% url 'users:login' %}" method="post">
                 {% csrf_token %}
                 <h1 class="form-signin-heading text-muted">Sign In</h1>
-                <input name="username" type="text" class="form-control" placeholder="Email address" required="" autofocus="">
+                <input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
                 <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                <a href="{% url 'users:register' %}">没有账号，注册一个.</a>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
                 <input type="hidden" name="next" value="{% url 'learnlogs:index' %}">
             </form>
