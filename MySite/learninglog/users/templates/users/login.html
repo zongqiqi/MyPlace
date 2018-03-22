@@ -9,13 +9,6 @@
 {% endblock %}
 
 {% block content %}
-    {% if form.errors %}
-        <p>Your username and password didn't match.Please try again.</p>
-    {% endif %}
-
-
-
-
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-8 col-md-offset-2" >
@@ -30,6 +23,13 @@
             <form class="form-signin" action="{% url 'users:login' %}" method="post">
                 {% csrf_token %}
                 <h1 class="form-signin-heading text-muted">Sign In</h1>
+                {% if form.errors %}
+                    <ul class='form-errors'>
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
                 <input name="password" type="password" class="form-control" placeholder="Password" required="">
                 <a href="{% url 'users:register' %}">没有账号，注册一个.</a>
