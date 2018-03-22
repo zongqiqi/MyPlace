@@ -22,4 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('learnlogs/',include('learnlogs.urls')),
     path('users/',include('users.urls')),
+
+    # path('ckeditor/',include('ckeditor_uploader.urls')), ##富文本编辑器
 ]

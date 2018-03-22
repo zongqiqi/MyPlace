@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from tinymce.models import HTMLField
+import tinymce
+
 # class Topic(models.Model):
 #     """用户学习的主题"""
 #     owner=models.ForeignKey(User)
@@ -41,7 +44,8 @@ class Entry(models.Model):
     """学习主题下面的学习条目"""
     topic=models.ForeignKey(Topic,on_delete=models.CASCADE)  #外键，指向主题类;级联删除，删除主表的数据时候从表中的数据也随着一起删除
     name=models.CharField(max_length=200)
-    text=models.TextField()         #条目内容
+    text=models.TextField()
+    # text=RichTextField('  请输入内容（Markdown语法）')         #仅admin后台使用富文本编辑器
     date_added=models.DateTimeField(auto_now_add=True)  #创建时间
     class Meta:
         verbose_name_plural='entries' #设置条目的复数形式
