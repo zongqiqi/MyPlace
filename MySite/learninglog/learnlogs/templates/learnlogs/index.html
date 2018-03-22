@@ -8,7 +8,7 @@
         <!-- <li class="dropdown-header">Dropdown heading</li> -->
             <form action="{% url 'learnlogs:index' %}" method="post">
                 {% csrf_token %}
-                <!-- <input type="text" name="q" style="background-color: #1c1c1c;color: white" placeholder="请输入新主题"> -->
+                <!-- <input type="text" name="q" style="background-color: #1c1c1c;color: white" placeholder="请输入新主题(登录)"> -->
                 {{form.name}}
                 <input type="submit" value="提交" style="background-color:#1c1c1c;color: white">
             </form>
@@ -24,8 +24,7 @@
         <div class="col-md-8 col-md-offset-2" >
                 <div class="jumbotron">
                     <h2>含泪播种的人，必能含笑收获。</h2>
-                    <br>
-                    <br>
+                    <p align="right">---宗七七的学习小站</p>
                 </div>
                 <!-- 段落样式 -->
                {% for entry in entries %}

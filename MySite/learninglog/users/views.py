@@ -15,10 +15,10 @@ def logout_view(request):
 def register(request):
     """注册页面"""
     if request.method == "POST":
-        name=request.POST['username']
+        name=request.POST['username'].strip()
         password=request.POST['password']
         if password == request.POST['password1']:
-            user=User(username=name,password=password)
+            user=User.objects.create_user(username=name, password=password,is_active=True)
             user.save()
             login(request,user)
             return HttpResponseRedirect(reverse('learnlogs:index'))
