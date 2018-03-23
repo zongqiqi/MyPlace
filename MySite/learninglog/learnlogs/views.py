@@ -10,6 +10,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 from .models import Topic,Entry
 from .forms import NewTopicForm,NewEntryForm
@@ -37,13 +38,20 @@ def index(request):
     # entries=Entry.objects.order_by('-date_added')[:6]
     # context={'all_topic':all_topic,'form':form,'entries':entries}
     # return render(request,"learnlogs/index.html",context)
-
+    entries=Entry.objects.order_by('-date_added')   ##条目查询集
+    paginator=Paginator(entries,5,2) ##实例化结果集，每页5条，少于两条则合并到上一页
+    page=request.GET.get('page')  #接收网页中的page值
+    try:
+        customer=paginator.page(page)
+    except PageNotAnInteger:
+        customer=paginator.page(1)
+    except EmptyPage:
+        customer=paginator.page(paginator.num_pages)
 
     if request.user.username =="":
         form=NewTopicForm()
         all_topic=Topic.objects.order_by('date_added')
-        entries=Entry.objects.order_by('-date_added')[:6]
-        context={'all_topic':all_topic,'form':form,'entries':entries}
+        context={'all_topic':all_topic,'form':form,'entries':customer}
         return render(request,"learnlogs/index.html",context)
     else:
         if request.method != "POST":
@@ -59,8 +67,7 @@ def index(request):
                 return HttpResponseRedirect(reverse('learnlogs:index'))   ##重定向
         all_topic=Topic.objects.filter(owner=request.user).order_by('date_added')
         print(request.user)
-        entries=Entry.objects.order_by('-date_added')[:6]
-        context={'all_topic':all_topic,'form':form,'entries':entries}
+        context={'all_topic':all_topic,'form':form,'entries':customer}
         return render(request,"learnlogs/index.html",context)
 
 
@@ -69,8 +76,19 @@ def topic(request,topic_id):
     """特定主题页面"""
     topic=Topic.objects.get(id=topic_id)
     entries=topic.entry_set.order_by('-date_added')
+    paginator=Paginator(entries,5,2) ##实例化结果集，每页5条，少于两条则合并到上一页
+    page=request.GET.get('page')  #接收网页中的page值
+    try:
+        customer=paginator.page(page)
+    except PageNotAnInteger:
+        customer=paginator.page(1)
+    except EmptyPage:
+        customer=paginator.page(paginator.num_pages)
+
+
+    
     all_topic=Topic.objects.order_by('date_added')
-    context={'entries':entries,'all_topic':all_topic,'topic':topic}
+    context={'entries':customer,'all_topic':all_topic,'topic':topic}
     return render(request,"learnlogs/topic.html",context)
 
 def entry(request,entry_id):
@@ -119,7 +137,7 @@ def edit_entry(request,entry_id):
                 new_entry=form.save(commit=False)
                 new_entry.topic=topic
                 new_entry.save()
-                return HttpResponseRedirect(reverse('learnlogs:topic',args=[topic.id]))
+                return HttpResponseRedirect(reverse('learnlogs:entry',args=[entry_id]))
         context={'topic':topic,'form':form,'all_topic':all_topic,'entry':entry}
         return render(request,'learnlogs/edit_entry.html',context)
     else:

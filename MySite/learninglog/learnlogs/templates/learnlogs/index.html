@@ -1,4 +1,5 @@
 {% extends "learnlogs/base.html" %}
+{% load pagetag %}
 
 <!-- 传入topics -->
 {% block sidebar%}
@@ -22,10 +23,13 @@
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-8 col-md-offset-2" >
-                <div class="jumbotron">
-                    <h2>含泪播种的人，必能含笑收获。</h2>
-                    <p align="right">---宗七七的学习小站</p>
-                </div>
+                {% if entries.has_previous %}
+                {% else %}
+                    <div class="jumbotron">
+                        <h2>含泪播种的人，必能含笑收获。</h2>
+                        <p align="right">---宗七七的学习小站</p>
+                    </div>
+                {% endif %}                
                 <!-- 段落样式 -->
                {% for entry in entries %}
                     <div class="col-md-12 blogShort">
@@ -37,8 +41,33 @@
                 {% empty %}
                     <h2>There is no Entries in this topic</h2>
                 {% endfor %}
-        </div>
 
+                <div class="col-md-12 blogShort">
+                    <div class="container">
+                        <br>
+                    <ul class="pagination">
+                        {% if entries.has_previous %}
+                            <li><a href="?page={{ entries.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">«</a></li>
+                        {% endif %}
+
+                        {% for pg in entries.paginator.page_range %}
+                            {% circle_page entries.number pg %}
+                        {% endfor %}
+
+                        {% if entries.has_next %}
+                            <li><a href="?page={{ entries.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">»</a></li>
+                        {% endif %}
+                    </ul>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 {% endblock %}

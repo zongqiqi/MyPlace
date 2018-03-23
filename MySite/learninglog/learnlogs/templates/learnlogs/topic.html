@@ -1,5 +1,5 @@
 {% extends "learnlogs/base.html" %}
-
+{% load pagetag %}
 
 {% block content %}
 <div class="container">
@@ -20,6 +20,30 @@
                 {% empty %}
                     <h2>There is no Entries in this topic</h2>
                 {% endfor %}
+                <div class="col-md-12 blogShort">
+                    <div class="container">
+                        <br>
+                    <ul class="pagination">
+                        {% if entries.has_previous %}
+                            <li><a href="?page={{ entries.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">«</a></li>
+                        {% endif %}
+
+                        {% for pg in entries.paginator.page_range %}
+                            {% circle_page entries.number pg %}
+                        {% endfor %}
+
+                        {% if entries.has_next %}
+                            <li><a href="?page={{ entries.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">»</a></li>
+                        {% endif %}
+                    </ul>
+                    <br>
+                    <br>
+                </div>
+            </div>
         </div>
     </div>
 </div>

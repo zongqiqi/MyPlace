@@ -458,3 +458,9 @@ input, button {
 a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dropdown-toggle:active {
     text-decoration: none;
 }
+
+
+
+
+/*pagination--分页*/
+.pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
