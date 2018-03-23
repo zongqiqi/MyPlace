@@ -25,7 +25,7 @@ SECRET_KEY = ')b71m#fy__tiiy)v+a@l=upscepq35(*!po=17x3_udl62#@v*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #我的应用
     'learnlogs',
     'users',  #用户系统
+    'lovestory','bootstrap3',
 
     # 'ckeditor',##富文本编辑器
     # 'ckeditor_uploader'
@@ -61,7 +62,7 @@ ROOT_URLCONF = 'learninglog.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'learninglog/templates')],   ##自定义404,500页面
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,6 +130,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    )
 
 #未登录用户执行@login_required的操作是，重定向登陆页面
 LOGIN_URL = '/users/login'

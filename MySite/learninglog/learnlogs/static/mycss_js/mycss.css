@@ -464,3 +464,10 @@ a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dr
 
 /*pagination--分页*/
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+
+
+/*page -- footer*/
+.bg-lightgray
+{
+    background-color:LightGray;
+}

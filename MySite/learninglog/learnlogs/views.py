@@ -4,7 +4,7 @@ Django,learnlogs的视图函数
 import markdown
 import logging
 
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -75,6 +75,7 @@ def index(request):
 def topic(request,topic_id):
     """特定主题页面"""
     topic=Topic.objects.get(id=topic_id)
+    # topic=get_object_or_404(Topic,id=topic_id) ##必须登录
     entries=topic.entry_set.order_by('-date_added')
     paginator=Paginator(entries,5,2) ##实例化结果集，每页5条，少于两条则合并到上一页
     page=request.GET.get('page')  #接收网页中的page值

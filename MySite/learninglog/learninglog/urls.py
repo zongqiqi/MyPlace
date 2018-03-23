@@ -15,6 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 admin.autodiscover()  #若应用有admin.py，使用app的admin
 
@@ -22,6 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('learnlogs/',include('learnlogs.urls')),
     path('users/',include('users.urls')),
+    path('love/',include('lovestory.urls')),
 
     # path('ckeditor/',include('ckeditor_uploader.urls')), ##富文本编辑器
-]
+] 
+
+

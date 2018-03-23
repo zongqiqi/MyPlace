@@ -1,0 +1,59 @@
+{% load bootstrap3 %}
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>Log-in</title>
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+</head>
+  <body>
+    <div id="mydiv" style="height:500px;">
+    <div id="header">
+
+    </div>
+    <div id="content" style="width: 300px;text-align:center;margin:0 auto;">
+    <h1>Log-in</h1>
+    <p>Please, use the following form to log-in:</p>
+    <form action="." method="post">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+      {% buttons %}
+      <button name="submit" class="btn btn-primary">log in</button>
+      {% endbuttons %}
+    </form>
+    </div>
+    </div>
+
+
+
+
+
+
+    <script type="text/javascript">
+    window.onload = function() {
+        //配置
+        var config = {
+            vx: 4,  //小球x轴速度,正为右，负为左
+            vy: 4,  //小球y轴速度
+            height: 2,  //小球高宽，其实为正方形，所以不宜太大
+            width: 2,
+            count: 100,   //点个数
+            // color: "121, 162, 185",   //点颜色
+            // stroke: "130,255,255",    //线条颜色
+            color: "1, 1, 1",   //点颜色
+            stroke: "1,1,1",    //线条颜色 ----->>黑色
+            dist: 6000,   //点吸附距离
+            e_dist: 20000,  //鼠标吸附加速距离
+            // dist: 6000,   //点吸附距离
+            // e_dist: 20000,  //鼠标吸附加速距离
+            max_conn: 10  //点到点最大连接数
+        }
+
+        //调用
+        CanvasParticle(config);
+    }
+  </script>
+  <script type="text/javascript" src="{% static 'lovestory/login/canvas-particle.js' %}"></script>
+  </body>
+</html>
