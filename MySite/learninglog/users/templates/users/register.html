@@ -25,8 +25,9 @@
                 {% endif %}
                 {% csrf_token %}
                 <input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
-                <input name="password" type="password" class="form-control" placeholder="Password(八位，不能全为数字)" required="">
+                <input name="password" type="password" class="form-control" placeholder="Password(六位，不能全为数字)" required="">
                 <input name="password1" type="password" class="form-control" placeholder="Password（再输入一次）" required="">
+                <input name="email" type="email" class="form-control" placeholder="Email地址（帮助找回账户）">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
                 <input type="hidden" name="next" value="{% url 'learnlogs:index' %}">
             </form>
