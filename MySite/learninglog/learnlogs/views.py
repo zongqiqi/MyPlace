@@ -118,6 +118,7 @@ def new_entry(request,topic_id):
         if form.is_valid():
             new_entry=form.save(commit=False)
             new_entry.topic=topic
+            new_entry.owner=request.user
             new_entry.save()
             return HttpResponseRedirect(reverse('learnlogs:topic',args=[topic.id]))
     context={'topic':topic,'form':form,'all_topic':all_topic}
