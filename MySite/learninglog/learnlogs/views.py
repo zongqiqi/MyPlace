@@ -19,25 +19,6 @@ from .forms import NewTopicForm,NewEntryForm
 
 def index(request):
     """学习笔记的主页，包含新主题提交form"""
-    # print(request.user.username)
-    # if request.method != "POST":
-    #     form=NewTopicForm()
-    # else:
-    #     form=NewTopicForm(request.POST)
-    #     if form.is_valid():         #表单验证
-    #         data=form.cleaned_data  #cleaned_data类型是字典，里面是提交成功后的信息
-    #         name=data['name']        #获取新topic的字段
-    #         u=User.objects.all().first()   #确定添加主题的owner
-    #         new_topic=Topic(owner=u,text=name)   #实例新topic
-    #         new_topic.save()                     ##保存
-    #         return HttpResponseRedirect(reverse('learnlogs:index'))   ##重定向
-    # try:  ##如果用户已经登录，返回用户的entry
-    #     all_topic=Topic.objects.filter(owner=request.user).order_by('date_added')
-    # except TypeError:
-    #     all_topic=Topic.objects.order_by('date_added')
-    # entries=Entry.objects.order_by('-date_added')[:6]
-    # context={'all_topic':all_topic,'form':form,'entries':entries}
-    # return render(request,"learnlogs/index.html",context)
     entries=Entry.objects.order_by('-date_added')   ##条目查询集
     paginator=Paginator(entries,5,2) ##实例化结果集，每页5条，少于两条则合并到上一页
     page=request.GET.get('page')  #接收网页中的page值

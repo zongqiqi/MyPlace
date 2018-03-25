@@ -5,7 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from .forms import RegisterForm
+from .forms import RegisterForm,EmailForm
 
 
 def logout_view(request):
@@ -15,16 +15,6 @@ def logout_view(request):
 
 def register(request):
     """注册页面"""
-    # if request.method == "POST":
-    #     name=request.POST['username'].strip()
-    #     password=request.POST['password']
-    #     if password == request.POST['password1']:
-    #         user=User.objects.create_user(username=name, password=password,is_active=True)
-    #         user.save()
-    #         login(request,user)
-    #         return HttpResponseRedirect(reverse('learnlogs:index'))
-    # return render(request, 'users/register.html')
-
     form = RegisterForm(request.POST or None)
     if request.POST and form.is_valid():
         user = form.login(request)
@@ -32,3 +22,16 @@ def register(request):
             login(request, user)
             return HttpResponseRedirect(reverse('learnlogs:index'))# Redirect to a success page.
     return render(request, 'users/register.html', {'form': form })
+
+def contactme(request):
+    if request.method != "POST":
+        form=EmailForm()
+    else:
+        form=EmailForm(data=request.POST)
+        if form.is_valid():
+            if form.sendmail():
+                return HttpResponseRedirect(reverse('users:sended'))
+    return render(request, 'users/contactme.html', {'form': form })
+
+def email_senddone(request):
+    return render(request, 'users/send_done.html')

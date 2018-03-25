@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 
 class RegisterForm(forms.Form):
     username=forms.CharField(max_length=255, required=True)
@@ -31,3 +32,26 @@ class RegisterForm(forms.Form):
         password = self.cleaned_data.get('password')
         user = authenticate(username=username, password=password)
         return user
+
+class EmailForm(forms.Form):
+    name=forms.CharField(max_length=25)
+    title=forms.CharField(max_length=240)
+    emailto=forms.EmailField()
+    content=forms.CharField(widget=forms.TextInput(attrs={'placeholder':'请输入内容（不能为空）','cols':'116','rows':'20'}),)
+
+    def clean(self):
+        name = self.cleaned_data.get('name')
+        emailto=self.cleaned_data.get('emailto')
+        title=self.cleaned_data.get('title')
+        content=self.cleaned_data.get('content')
+        if content=='':
+            raise forms.ValidationError("内容不能为空！ ")
+    def sendmail(self):
+        name = self.cleaned_data.get('name')
+        emailto=self.cleaned_data.get('emailto')
+        title=self.cleaned_data.get('title')
+        content=self.cleaned_data.get('content')
+        mail='zongqiqi0522@foxmail.com'
+        content=name+':'+emailto+':'+content
+        send_status = send_mail(title, content, mail,[mail])
+        return send_status

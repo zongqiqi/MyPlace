@@ -15,12 +15,12 @@
     <div id="content" style="width: 300px;text-align:center;margin:0 auto;">
     <h1>Log-in</h1>
     <p>Please, use the following form to log-in:</p>
-    <form action="." method="post">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      {% buttons %}
-      <button name="submit" class="btn btn-primary">log in</button>
-      {% endbuttons %}
+    <form action="{% url 'lovestory:login' %}" method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% buttons %}
+        <button name="submit" class="btn btn-primary">log in</button>
+        {% endbuttons %}
     </form>
     </div>
     </div>

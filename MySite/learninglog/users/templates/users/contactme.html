@@ -1,0 +1,31 @@
+{% extends "learnlogs/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'mycss/myjs.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+            <form class="form-signin" action="{% url 'users:contactme' %}" method="post">
+                <h1 class="form-signin-heading text-muted">Register</h1>
+                {% if form.non_field_errors %}
+                    <ul class='form-errors'>
+                        {% for error in form.non_field_errors %}
+                            <li style="list-style-type:none;">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                {% csrf_token %}
+                <input name="name" type="text" class="form-control" placeholder="您的名字" required="" autofocus="">
+                <input name="emailto" type="email" class="form-control" placeholder="您的邮箱" required="">
+                <input name="title" type="text" class="form-control" placeholder="邮件标题" required="">
+                <textarea name='content' cols='50' rows='15' placeholder='您想和我说什么？'></textarea>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">发送</button>
+                <!-- <input type="hidden" name="next" value="{% url 'learnlogs:index' %}"> -->
+            </form>
+ </div></div></div> 
+{% endblock %}

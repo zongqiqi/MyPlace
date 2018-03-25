@@ -40,7 +40,7 @@ class Topic(models.Model):
 
 class Entry(models.Model):
     """学习主题下面的学习条目"""
-    owner=models.ForeignKey(User,on_delete=models.CASCADE,default=u)
+    owner=models.ForeignKey(User,on_delete=models.CASCADE)
     topic=models.ForeignKey(Topic,on_delete=models.CASCADE)  #外键，指向主题类;级联删除，删除主表的数据时候从表中的数据也随着一起删除
     name=models.CharField(max_length=200)
     text=models.TextField()

@@ -9,4 +9,7 @@ urlpatterns = [
     path('logout',views.logout_view,name='logout'),        ##注销视图
     path('register',views.register,name='register'),
 
+    path('contactme',views.contactme,name='contactme'),
+    path('sended',views.email_senddone,name='sended'),
+
 ]

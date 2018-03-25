@@ -2,15 +2,11 @@
 {% load staticfiles %}
 
 {% block head %}
-    <link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="{% static 'mycss/myjs.js' %}"></script>
-
-
 {% endblock %}
 
 {% block content %}
-
-
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-8 col-md-offset-2" >
@@ -19,7 +15,7 @@
                 {% if form.non_field_errors %}
                     <ul class='form-errors'>
                         {% for error in form.non_field_errors %}
-                            <li>{{ error }}</li>
+                            <li style="list-style-type:none;">{{ error }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
@@ -31,8 +27,5 @@
                 <button class="btn btn-lg btn-primary btn-block" type="submit">注册</button>
                 <input type="hidden" name="next" value="{% url 'learnlogs:index' %}">
             </form>
-
  </div></div></div> 
-
-    
 {% endblock %}

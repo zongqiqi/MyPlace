@@ -471,3 +471,11 @@ a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dr
 {
     background-color:LightGray;
 }
+
+
+/*form errors*/
+.form-errors{
+  line-height:100%;margin:20px;font-family: Georgia;padding: 5px;
+  font-style:italic;font-size:15px;background-color: #FFC0CB;
+  border:2px solid;border-radius:15px;
+}
