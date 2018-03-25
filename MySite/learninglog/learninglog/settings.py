@@ -43,9 +43,9 @@ INSTALLED_APPS = [
     'users',  #用户系统
     'lovestory','bootstrap3',
 
-    # 'ckeditor',##富文本编辑器
-    # 'ckeditor_uploader'
+    'django_comments','django.contrib.sites', #评论系统
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

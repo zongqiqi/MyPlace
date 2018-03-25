@@ -27,7 +27,8 @@ urlpatterns = [
     path('users/',include('users.urls')),
     path('love/',include('lovestory.urls')),
 
-    # path('ckeditor/',include('ckeditor_uploader.urls')), ##富文本编辑器
+    path('comments/',include('django_comments.urls')),
+
 ] 
 
 
