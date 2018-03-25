@@ -20,9 +20,15 @@
                     </ul>
                 {% endif %}
                 {% csrf_token %}
-                <input name="name" type="text" class="form-control" placeholder="您的名字" required="" autofocus="">
-                <input name="emailto" type="email" class="form-control" placeholder="您的邮箱" required="">
-                <input name="title" type="text" class="form-control" placeholder="邮件标题" required="">
+
+                {% if user.is_authenticated %}
+                    <input name="name" type="text" class="form-control" placeholder="您的名字" required="" value="{{user.username}}" >
+                    <input name="emailto" type="email" class="form-control" placeholder="您的邮箱" required="" value="{{user.email}}">
+                {% else %}
+                    <input name="name" type="text" class="form-control" placeholder="您的名字" required="" autofocus="">
+                    <input name="emailto" type="email" class="form-control" placeholder="您的邮箱" required="" value="{{user.email}}">
+                {% endif %}
+                <input name="title" type="text" class="form-control" placeholder="邮件标题" required="" autofocus="">
                 <textarea name='content' cols='50' rows='15' placeholder='您想和我说什么？'></textarea>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">发送</button>
                 <!-- <input type="hidden" name="next" value="{% url 'learnlogs:index' %}"> -->
