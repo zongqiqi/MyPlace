@@ -65,7 +65,7 @@
                     <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
                     </button>
                     <a class="navbar-brand" href="{% url 'learnlogs:index' %}" style="font-size:40px;color: black">
-                        Learning Log
+                        学习日志
                     </a>
                 </div>
                 <div class="navbar-brand-centered" style="background-color: white">
@@ -101,11 +101,10 @@
                     <li class="dropdown" style="list-style: none">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1a1a1a">{{ user.username }}<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="#">个人中心</a></li>
+                            <li><a href="#">修改密码</a></li>
                             <li class="divider"></li>
-                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  Log-out</a></li>
+                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  注销</a></li>
                         </ul>
                     </li>
 

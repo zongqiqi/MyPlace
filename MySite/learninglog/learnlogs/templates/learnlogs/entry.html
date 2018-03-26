@@ -11,7 +11,7 @@
                     <br>
                     <small>{{ entry.date_added }} ---{{entry.owner.username}} &nbsp;&nbsp;<a href="{% url 'learnlogs:edit_entry' entry.id %}"> Edit entry</a></small>
                 </div>
-                <div class="col-md-12 blogShort">
+                <div class="col-md-12 blogShort" style="box-shadow: 1px 1px 10px #888888;padding: 20px">
                     {{ entry.text |safe }}
                 </div>
 
@@ -20,7 +20,7 @@
 <!-- ************************************************************************ -->
                 <div class="col-md-12 blogShort" style="padding-top: 10px">
                 <div class="panel panel-default">
-                    <div class="panel-heading">
+                    <div class="panel-heading"  {% if user.is_authenticated %} style="display:none;" {% endif%}>
                         <h4>评论列表</h4>
                     </div>
                     <div class="panel-body">
@@ -33,7 +33,7 @@
                                 <p class="comment_content">{{ comment.comment }}</p>
                             </div>            
                         {% empty %}
-                            <span>暂无评论</span>
+                            <span>机智如你，不想发表一下意见吗？</span>
                         {% endfor %}
                     </div>
                 </div></div>
