@@ -4,8 +4,9 @@ from django.http import HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm,EmailForm
+from .forms import RegisterForm,EmailForm,ChangepwForm
 
 
 def logout_view(request):
@@ -34,4 +35,29 @@ def contactme(request):
     return render(request, 'users/contactme.html', {'form': form })
 
 def email_senddone(request):
-    return render(request, 'users/send_done.html')
+    message='这个大神发送了一个超级好建议给了管理员'
+    context={'message':message}
+    return render(request, 'users/send_done.html',context)
+
+@login_required
+def changepw(request):
+    if request.method != 'POST':
+        form=ChangepwForm()
+    else:
+        form=ChangepwForm(request.POST)
+        if form.is_valid():
+            username = request.user.username
+            oldpassword = request.POST.get('password1')
+            user = authenticate(username=username, password=oldpassword)
+            if user is not None and user.is_active:
+                newpassword = request.POST.get('password2')
+                user.set_password(newpassword)
+                user.save()
+                message='密码修改成功'
+                context={'message':message}
+                return render(request, 'users/send_done.html',context)
+        message='密码修改失败，请重新修改。'
+        context={'message':message}
+        return render(request, 'users/send_done.html',context)
+    context={'form':form}
+    return render(request, 'users/changepw.html',context)

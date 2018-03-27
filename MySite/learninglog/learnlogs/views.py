@@ -101,7 +101,7 @@ def new_entry(request,topic_id):
             new_entry.topic=topic
             new_entry.owner=request.user
             new_entry.save()
-            return HttpResponseRedirect(reverse('learnlogs:topic',args=[topic.id]))
+            return HttpResponseRedirect(reverse('learnlogs:entry',args=[new_entry.id]))
     context={'topic':topic,'form':form,'all_topic':all_topic}
     return render(request,'learnlogs/new_entry.html',context)
 

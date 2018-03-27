@@ -23,9 +23,16 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = ')b71m#fy__tiiy)v+a@l=upscepq35(*!po=17x3_udl62#@v*'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+import socket
+if socket.gethostbyname(socket.gethostname())[:3]=='192':
+    DEBUG = TEMPLATE_DEBUG = True
+else:
+    DEBUG = TEMPLATE_DEBUG = False
+
 
 ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['zongqiqi.ink','*.zongqiqi.ink'] 
 
 
 # Application definition
@@ -126,12 +133,14 @@ USE_L10N = True
 USE_TZ = True
 
 ##邮箱设置
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT= 25  
 EMAIL_HOST = 'smtp.qq.com'  # 如果是 163 改成 smtp.163.com
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'zongqiqi0522@foxmail.com' # 帐号
 EMAIL_HOST_PASSWORD = 'ryvpvvuqenybbbcf'  # 密码
-DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_SUBJECT_PREFIX = 'website' #为邮件标题的前缀,默认是'[django]'
 
 
 # Static files (CSS, JavaScript, Images)
@@ -149,3 +158,71 @@ STATICFILES_FINDERS = (
 
 #未登录用户执行@login_required的操作是，重定向登陆页面
 LOGIN_URL = '/users/login'
+
+
+
+##--log及通知管理员设置-------------------------
+#管理员邮箱
+# ADMINS = (
+#     ('Zong Qiqi','zongqiqi0522@foxmail.com'),
+# )
+# #非空链接，却发生404错误，发送通知MANAGERS
+# SEND_BROKEN_LINK_EMAILS = True
+# MANAGERS = ADMINS
+# #logging日志配置
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': True,
+#     'formatters': {#日志格式 
+#        'standard': {
+#             'format': '%(asctime)s [%(threadName)s:%(thread)d] [%(name)s:%(lineno)d] [%(module)s:%(funcName)s] [%(levelname)s]- %(message)s'} 
+#     },
+#     'filters': {#过滤器
+#         'require_debug_false': {
+#                 '()': 'django.utils.log.RequireDebugFalse',
+#             }
+#     },
+#     'handlers': {#处理器
+#         'null': {
+#             'level': 'DEBUG',
+#             'class': 'logging.NullHandler',
+#         },
+#         'mail_admins': {#发送邮件通知管理员
+#             'level': 'ERROR',
+#             'class': 'django.utils.log.AdminEmailHandler',
+#             'filters': ['require_debug_false'],# 仅当 DEBUG = False 时才发送邮件
+#             'include_html': True,
+#         },
+#         'debug': {#记录到日志文件(需要创建对应的目录，否则会出错)
+#             'level':'DEBUG',
+#             'class':'logging.handlers.RotatingFileHandler',
+#             'filename': os.path.join(BASE_DIR, "log",'debug.log'),#日志输出文件
+#             'maxBytes':1024*1024*5,#文件大小 
+#             'backupCount': 5,#备份份数
+#             'formatter':'standard',#使用哪种formatters日志格式
+#         },
+#         'console':{#输出到控制台
+#             'level': 'DEBUG',
+#             'class': 'logging.StreamHandler',
+#             'formatter': 'standard',
+#         },
+#     },
+#     'loggers': {#logging管理器
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': False 
+#         },
+#         'django.request': {
+#             'handlers': ['debug','mail_admins'],
+#             'level': 'ERROR',
+#             'propagate': True,
+#         },
+#         # 对于不在 ALLOWED_HOSTS 中的请求不发送报错邮件
+#         'django.security.DisallowedHost': {
+#             'handlers': ['null'],
+#             'propagate': False,
+#         },
+#     } 
+# }
+
