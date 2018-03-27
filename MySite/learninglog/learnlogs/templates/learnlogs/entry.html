@@ -1,6 +1,10 @@
 {% extends "learnlogs/base.html" %}
 {% load comments %} <!-- #导入评论库模块的模版标签 -->
+{% load staticfiles %}
 
+{% block head %}
+ <link href="{% static 'code.css' %}" rel="stylesheet">
+{% endblock %}
 
 {% block content %}
 <div class="container">

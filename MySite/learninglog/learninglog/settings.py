@@ -146,6 +146,9 @@ EMAIL_SUBJECT_PREFIX = 'website' #为邮件标题的前缀,默认是'[django]'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
+#User拓展设置
+AUTH_PROFILE_MODULE = 'users.Profile'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 STATICFILES_DIRS = (
