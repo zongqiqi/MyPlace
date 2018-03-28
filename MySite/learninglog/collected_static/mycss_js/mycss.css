@@ -436,7 +436,7 @@ input, button {
   z-index: 2;
 }
 .form-signin input[type="email"] {
-  margin-bottom: -1px;
+  margin-bottom: 10px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
@@ -464,3 +464,18 @@ a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dr
 
 /*pagination--分页*/
 .pagination>li>a, .pagination>li>span { border-radius: 50% !important;margin: 0 5px;}
+
+
+/*page -- footer*/
+.bg-lightgray
+{
+    background-color:LightGray;
+}
+
+
+/*form errors*/
+.form-errors{
+  line-height:100%;margin:20px;font-family: Georgia;padding: 5px;
+  font-style:italic;font-size:15px;background-color: #FFC0CB;
+  border:2px solid;border-radius:15px;
+}

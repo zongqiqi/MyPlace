@@ -26,7 +26,7 @@
     {% block head %}{% endblock %}
 
 </head>
-<body>
+<body >
 
 
 
@@ -101,7 +101,7 @@
                     <li class="dropdown" style="list-style: none">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1a1a1a">{{ user.username }}<span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">个人中心</a></li>
+                            <li><a href="{% url 'users:profile' %}">个人中心</a></li>
                             <li><a href="{% url 'users:changepw' %}">修改密码</a></li>
                             <li class="divider"></li>
                             <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  注销</a></li>

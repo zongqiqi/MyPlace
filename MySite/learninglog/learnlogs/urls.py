@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name='learnlogs'
 urlpatterns = [
@@ -27,3 +29,5 @@ urlpatterns = [
     
     path('test',views.test,name='test'),                                    ##测试
 ]
+
+

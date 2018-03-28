@@ -4,6 +4,8 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 
+from .models import Profile
+
 class RegisterForm(forms.Form):
     """用户注册表单"""
     username=forms.CharField(max_length=255, required=True)
@@ -73,4 +75,30 @@ class ChangepwForm(forms.Form):
             raise forms.ValidationError("所有项都为必填项")
         elif self.cleaned_data['password2'] != self.cleaned_data['password3']:
             raise forms.ValidationError("两次输入的新密码不一样")
+        return self.cleaned_data
+
+
+
+class UserEditForm(forms.ModelForm):
+    """User模型-用户信息填写表单"""
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    """Profile模型-用户信息填写表单"""
+    class Meta:
+        model=Profile
+        fields=('birth_date','describe','gender','photo')
+    def clean(self):
+        birth_date = self.cleaned_data.get('birth_date')
+        if not self.is_valid():
+            raise forms.ValidationError("生日格式不正确")
+        # T=birth_date.split('-')
+        # if len(T)!=3 or T[0] !=4:
+        #     raise forms.ValidationError("生日格式不正确.")
+        # if not T[0].isdigit() or not T[1].isdigit() or not T[2].isdigit():
+        #     raise forms.ValidationError("生日格式不正确().")
+        # if int(T[1])>12 or int(T[2])>31:
+        #     raise forms.ValidationError("生日格式不正确.")
         return self.cleaned_data

@@ -7,10 +7,12 @@ app_name='users'
 urlpatterns = [
     path('login',login,{'template_name':'users/login.html'},name='login'),          ##index导航页面
     path('logout',views.logout_view,name='logout'),        ##注销视图
-    path('register',views.register,name='register'),
-    path('changepw',views.changepw,name='changepw'),
+    path('register',views.register,name='register'), #注册
+    path('changepw',views.changepw,name='changepw'), #修改密码
 
-    path('contactme',views.contactme,name='contactme'),
-    path('sended',views.email_senddone,name='sended'),
+    path('profile',views.profile,name='profile'), #用户个人信息
+ 
+    path('contactme',views.contactme,name='contactme'), #联系管理员
+    path('sended',views.email_senddone,name='sended'),  #发送完毕
 
 ]

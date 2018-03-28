@@ -159,6 +159,11 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     )
 
+#多媒体文件
+MEDIA_URL='/media/'  #访问多媒体文件的URL
+MEDIA_ROOT=os.path.join(BASE_DIR,'media/')  ##多媒体文件的储存位置
+
+
 #未登录用户执行@login_required的操作是，重定向登陆页面
 LOGIN_URL = '/users/login'
 

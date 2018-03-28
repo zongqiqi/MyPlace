@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
-from .forms import RegisterForm,EmailForm,ChangepwForm
+from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm
 
 
 def logout_view(request):
@@ -61,3 +61,32 @@ def changepw(request):
         return render(request, 'users/send_done.html',context)
     context={'form':form}
     return render(request, 'users/changepw.html',context)
+
+@login_required
+def profile(request):
+    if request.method!="POST":
+        form=ProfileForm()
+    else:
+        form=ProfileForm(request.POST)
+        if form.is_valid():
+            username = request.POST.get('username')
+            gender = request.POST.get('gender')
+            phone = request.POST.get('phone')
+            email = request.POST.get('email')
+            birth_date = request.POST.get('birth_date')
+            hobby=request.POST.get('hobby')
+            adress = request.POST.get('adress')
+            describe = request.POST.get('describe')
+            uu=User.objects.filter(username=request.user.username)[0]
+            uu.username=username
+            uu.email=email
+            up=User.objects.filter(username=request.user.username)[0].profile
+            up.gender=gender
+            up.phone=phone
+            up.birth_date=birth_date
+            up.address=adress
+            up.describe=describe
+            uu.save()
+            up.save()
+    context={'form':form}
+    return render(request, 'users/profile.html')
