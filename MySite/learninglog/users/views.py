@@ -5,6 +5,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm
 
@@ -77,10 +78,16 @@ def profile(request):
             hobby=request.POST.get('hobby')
             adress = request.POST.get('adress')
             describe = request.POST.get('describe')
+            photo = request.FILES['photo']
+            photoname = '%s/pic/%s' % (settings.MEDIA_ROOT, photo.name)
+            with open(photoname, 'wb') as pic:
+                for c in photo.chunks():
+                    pic.write(c)
             uu=User.objects.filter(username=request.user.username)[0]
             uu.username=username
             uu.email=email
             up=User.objects.filter(username=request.user.username)[0].profile
+            up.photo=photoname
             up.gender=gender
             up.phone=phone
             up.birth_date=birth_date

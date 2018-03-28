@@ -10,7 +10,7 @@
 <div class="container" >
     <div class="row clearfix">
         <div class="col-md-10 col-md-offset-1" >
-            <form action="{% url 'users:profile' %}" method="post">
+            <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
             <div class="col-md-4" style="padding: 10px;text-align: center;">
                 <img alt="50x50" src="/media/{{ user.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
