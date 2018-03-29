@@ -78,16 +78,17 @@ def profile(request):
             hobby=request.POST.get('hobby')
             adress = request.POST.get('adress')
             describe = request.POST.get('describe')
-            photo = request.FILES['photo']
-            photoname = '%s/pic/%s' % (settings.MEDIA_ROOT, photo.name)
-            with open(photoname, 'wb') as pic:
-                for c in photo.chunks():
-                    pic.write(c)
             uu=User.objects.filter(username=request.user.username)[0]
             uu.username=username
             uu.email=email
             up=User.objects.filter(username=request.user.username)[0].profile
-            up.photo=photoname
+            photo = request.FILES.get('photo','')
+            if photo:
+                photoname = '%s/pic/%s' % (settings.MEDIA_ROOT, photo.name)
+                with open(photoname, 'wb') as pic:
+                    for c in photo.chunks():
+                        pic.write(c)
+                up.photo=photoname
             up.gender=gender
             up.phone=phone
             up.birth_date=birth_date

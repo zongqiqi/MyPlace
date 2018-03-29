@@ -89,7 +89,7 @@ class ProfileForm(forms.ModelForm):
     """Profile模型-用户信息填写表单"""
     class Meta:
         model=Profile
-        fields=('birth_date','describe','gender','photo')
+        fields=('birth_date','describe','gender','photo','address','phone')
     def clean(self):
         birth_date = self.cleaned_data.get('birth_date')
         if not self.is_valid():
