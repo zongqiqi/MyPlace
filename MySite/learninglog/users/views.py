@@ -91,12 +91,19 @@ def profile(request):
                 up.photo=photoname
             up.gender=gender
             up.phone=phone
+            up.hobby=hobby
             up.birth_date=birth_date
             up.address=adress
             up.describe=describe
             uu.save()
             up.save()
     entries=Entry.objects.filter(owner=request.user).order_by('-date_added')[:5]
-    print(entries)
     context={'form':form,'entries':entries}
     return render(request, 'users/profile.html',context)
+
+def author_profile(request,user_id):
+    form=ProfileForm()
+    author=User.objects.get(pk=user_id)
+    entries=Entry.objects.filter(owner=author).order_by('-date_added')[:5]
+    context={'author':author,'form':form,'entries':entries}
+    return render(request, 'users/author_profile.html',context)

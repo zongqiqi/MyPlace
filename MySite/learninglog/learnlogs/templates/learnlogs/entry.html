@@ -13,7 +13,7 @@
                 <div class="jumbotron">
                     <h2><a href="{% url 'learnlogs:topic' entry.topic.id%}">{{entry.topic}}</a> -- {{entry.name}}</h2>
                     <br>
-                    <small>{{ entry.date_added }} ---{{entry.owner.username}} &nbsp;&nbsp;<a href="{% url 'learnlogs:edit_entry' entry.id %}"> Edit entry</a></small>
+                    <small>{{ entry.date_added }} ---<a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a> &nbsp;&nbsp;<a href="{% url 'learnlogs:edit_entry' entry.id %}"> Edit entry</a></small>
                 </div>
                 <div class="col-md-12 blogShort" style="box-shadow: 1px 1px 10px #888888;padding: 20px">
                     {{ entry.text |safe }}

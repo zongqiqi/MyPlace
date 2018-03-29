@@ -11,6 +11,7 @@ urlpatterns = [
     path('changepw',views.changepw,name='changepw'), #修改密码
 
     path('profile',views.profile,name='profile'), #用户个人信息
+    path('author_profile/<int:user_id>',views.author_profile,name='author_profile'), #作者个人信息
  
     path('contactme',views.contactme,name='contactme'), #联系管理员
     path('sended',views.email_senddone,name='sended'),  #发送完毕
