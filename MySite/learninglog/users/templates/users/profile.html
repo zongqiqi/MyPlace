@@ -19,6 +19,11 @@
                     <label for="file" class=" btn btn-default">更换头像</label>
                     <input type="file" name="photo" id="file" style="display:none">
                 </div>
+                <br>
+                <p align="left">最近更新</p>
+                {% for entry in entries %}
+                    <a align="left" href="{% url 'learnlogs:entry' entry.id %}" class="list-group-item" style="border-radius:5px;">{{entry.name|truncatechars:20}}</a>
+                {% endfor %}
             </div>
             <div class="col-md-6">
                 <h1 style="padding-left: 20px">个人信息</h1>

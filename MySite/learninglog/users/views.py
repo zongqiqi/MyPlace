@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm
-
+from learnlogs.models import Topic,Entry
 
 def logout_view(request):
     """注销视图"""
@@ -96,5 +96,7 @@ def profile(request):
             up.describe=describe
             uu.save()
             up.save()
-    context={'form':form}
-    return render(request, 'users/profile.html')
+    entries=Entry.objects.filter(owner=request.user).order_by('-date_added')[:5]
+    print(entries)
+    context={'form':form,'entries':entries}
+    return render(request, 'users/profile.html',context)
