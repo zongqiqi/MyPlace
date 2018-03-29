@@ -1,9 +1,6 @@
 from django import template
 register=template.Library()
 
-
-
-
 from django.utils.html import format_html
 @register.simple_tag
 def circle_page(curr_page,loop_page):

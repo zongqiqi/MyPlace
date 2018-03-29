@@ -9,6 +9,7 @@ from django.conf import settings
 
 from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm
 from learnlogs.models import Topic,Entry
+from .models import Contact
 
 def logout_view(request):
     """注销视图"""
@@ -65,6 +66,7 @@ def changepw(request):
 
 @login_required
 def profile(request):
+    """允许编辑的个人信息"""
     if request.method!="POST":
         form=ProfileForm()
     else:
@@ -92,18 +94,26 @@ def profile(request):
             up.gender=gender
             up.phone=phone
             up.hobby=hobby
-            up.birth_date=birth_date
+            if birth_date:
+                up.birth_date=birth_date
             up.address=adress
             up.describe=describe
             uu.save()
             up.save()
-    entries=Entry.objects.filter(owner=request.user).order_by('-date_added')[:5]
+    entries=Entry.objects.filter(owner=request.user).order_by('-date_added')[:7]
     context={'form':form,'entries':entries}
     return render(request, 'users/profile.html',context)
 
+@login_required
 def author_profile(request,user_id):
+    """Entry作者（author）的个人信息，提供关注功能"""
     form=ProfileForm()
+    if request.method=='POST':
+        user_from=request.user
+        user_to=User.objects.filter(username=request.POST.get('contact')).first()
+        if not Contact.objects.filter(user_from=user_from,user_to=user_to) and user_from!=user_to:
+            Contact.objects.create(user_from=user_from,user_to=user_to)
     author=User.objects.get(pk=user_id)
-    entries=Entry.objects.filter(owner=author).order_by('-date_added')[:5]
+    entries=Entry.objects.filter(owner=author).order_by('-date_added')[:7]
     context={'author':author,'form':form,'entries':entries}
     return render(request, 'users/author_profile.html',context)

@@ -1,5 +1,6 @@
 {% extends "learnlogs/base.html" %}
 {% load staticfiles %}
+{% load follow %}
 
 {% block head %}
 <link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
@@ -10,19 +11,21 @@
 <div class="container" >
     <div class="row clearfix">
         <div class="col-md-10 col-md-offset-1" >
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" action="{% url 'users:author_profile' author.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
             <div class="col-md-4" style="padding: 10px;text-align: center;">
                 <img alt="50x50" src="/media/{{ author.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
                 <h4 align="center">{{author.username}}</h4>
                 <div>
-                    <label for="file" class=" btn btn-default" disabled="disabled">更换头像</label>
-                    <input type="file" name="photo" id="file" style="display:none" disabled="disabled">
+                    {% following user author %}
+                    <input value="{{author}}" name="contact" id="file" type="submit" style="display:none">
                 </div>
                 <br>
                 <p align="left">最近更新</p>
                 {% for entry in entries %}
                     <a align="left" href="{% url 'learnlogs:entry' entry.id %}" class="list-group-item" style="border-radius:5px;">{{entry.name|truncatechars:20}}</a>
+                {% empty %}
+                    <p>万事开头.</p>
                 {% endfor %}
             </div>
             <div class="col-md-6">
