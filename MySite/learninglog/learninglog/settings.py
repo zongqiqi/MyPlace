@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'lovestory','bootstrap3',
 
     'django_comments','django.contrib.sites', #评论系统
+    'rest_framework',
 ]
 SITE_ID = 1
 
@@ -166,6 +167,13 @@ MEDIA_ROOT=os.path.join(BASE_DIR,'media/')  ##多媒体文件的储存位置
 
 #未登录用户执行@login_required的操作是，重定向登陆页面
 LOGIN_URL = '/users/login'
+
+
+#RESTful --framework配置
+REST_FRAMEWORK={
+    'DEFAULT_PERMISSION_CLASSES':[ ##指定了去读取，创建，更新或者删除对象的默认权限
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'] #django-User权限，陌生人只读
+}
 
 
 

@@ -29,6 +29,8 @@ urlpatterns = [
 
     path('comments/',include('django_comments.urls')),
 
+    path('api/',include('learnlogs.api.urls')),
+
 ] 
 
 #在开发环境中对多媒体文件的服务

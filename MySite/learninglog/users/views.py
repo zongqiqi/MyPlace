@@ -100,8 +100,9 @@ def profile(request):
             up.describe=describe
             uu.save()
             up.save()
+    all_topic=Topic.objects.all().order_by('date_added')
     entries=Entry.objects.filter(owner=request.user).order_by('-date_added')[:7]
-    context={'form':form,'entries':entries}
+    context={'form':form,'entries':entries,'all_topic':all_topic}
     return render(request, 'users/profile.html',context)
 
 @login_required
@@ -115,8 +116,9 @@ def author_profile(request,user_id):
             Contact.objects.create(user_from=user_from,user_to=user_to)
         elif Contact.objects.filter(user_from=user_from,user_to=user_to):
             Contact.objects.get(user_from=user_from,user_to=user_to).delete()
+    all_topic=Topic.objects.all().order_by('date_added')
     author=User.objects.get(pk=user_id)
     followers=len(author.followers.all())
     entries=Entry.objects.filter(owner=author).order_by('-date_added')[:7]
-    context={'author':author,'form':form,'entries':entries,'followers':followers}
+    context={'author':author,'form':form,'entries':entries,'followers':followers,'all_topic':all_topic}
     return render(request, 'users/author_profile.html',context)

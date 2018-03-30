@@ -13,7 +13,7 @@ class Profile(models.Model):
     phone=models.CharField(max_length=20,blank=True,null=True)
     address=models.CharField(max_length=200,blank=True)#地址
     #图片字段，上传之/media/...
-    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True)#头像
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True,default='pic/default.png')#头像
 
 #创建个更新用户实例，profile同步更新和创建
 @receiver(post_save, sender=User)

@@ -11,7 +11,7 @@ def following(user,author):
     """
     followers=len(author.followers.all())
     if user==author:
-        page_ele='<label for="file"  style="border-radius:50px;background-color: #f1e05a;padding: 10px;width: 50%">你最美了({})</label>'.format(followers)
+        page_ele='<label  style="border-radius:50px;background-color: #f1e05a;padding: 10px;width: 50%">你最美了({})</label>'.format(followers)
     elif not Contact.objects.filter(user_from=user,user_to=author):
         page_ele='<label for="file" class=" btn btn-default" style="border-radius:50px;background-color: #f1e05a;padding: 10px;width: 50%">关注({})</label>'.format(followers)
     else:
