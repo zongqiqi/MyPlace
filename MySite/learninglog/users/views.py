@@ -113,7 +113,10 @@ def author_profile(request,user_id):
         user_to=User.objects.filter(username=request.POST.get('contact')).first()
         if not Contact.objects.filter(user_from=user_from,user_to=user_to) and user_from!=user_to:
             Contact.objects.create(user_from=user_from,user_to=user_to)
+        elif Contact.objects.filter(user_from=user_from,user_to=user_to):
+            Contact.objects.get(user_from=user_from,user_to=user_to).delete()
     author=User.objects.get(pk=user_id)
+    followers=len(author.followers.all())
     entries=Entry.objects.filter(owner=author).order_by('-date_added')[:7]
-    context={'author':author,'form':form,'entries':entries}
+    context={'author':author,'form':form,'entries':entries,'followers':followers}
     return render(request, 'users/author_profile.html',context)
