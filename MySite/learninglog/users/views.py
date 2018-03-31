@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
-from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm
+from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm,ForgetpwForm
 from learnlogs.models import Topic,Entry
 from .models import Contact
 
@@ -122,3 +122,24 @@ def author_profile(request,user_id):
     entries=Entry.objects.filter(owner=author).order_by('-date_added')[:7]
     context={'author':author,'form':form,'entries':entries,'followers':followers,'all_topic':all_topic}
     return render(request, 'users/author_profile.html',context)
+
+def forgetpw(request):
+    if request.method!='POST':
+        form=ForgetpwForm()
+    else:
+        form=ForgetpwForm(request.POST)
+        if form.is_valid():
+            email=request.POST.get('email')
+            password=request.POST.get('password1')
+            user = User.objects.get(email = email)
+            user.set_password(password)
+            user.save()
+            user = authenticate(username=user.username, password=password)
+            if user is not None:
+                login(request, user)
+                return HttpResponseRedirect(reverse('learnlogs:index'))
+    context={'form':form}
+    return render(request,'users/forgetpw.html')
+
+def forgetpwSendmail(request,email):
+    print(email)

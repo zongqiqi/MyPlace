@@ -16,4 +16,7 @@ urlpatterns = [
     path('contactme',views.contactme,name='contactme'), #联系管理员
     path('sended',views.email_senddone,name='sended'),  #发送完毕
 
+    path('forgetpw/',views.forgetpw,name='forgetpw'),
+    path('get_email_code/', views.forgetpwSendmail,name='get_email_code'),
+
 ]

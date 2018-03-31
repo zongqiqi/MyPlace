@@ -127,6 +127,7 @@ LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
+#支持国际化，国语言(Internationlization)
 USE_I18N = True
 
 USE_L10N = True

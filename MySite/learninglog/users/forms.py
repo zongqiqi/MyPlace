@@ -94,11 +94,28 @@ class ProfileForm(forms.ModelForm):
         birth_date = self.cleaned_data.get('birth_date')
         if not self.is_valid():
             raise forms.ValidationError("生日格式不正确")
-        # T=birth_date.split('-')
-        # if len(T)!=3 or T[0] !=4:
-        #     raise forms.ValidationError("生日格式不正确.")
-        # if not T[0].isdigit() or not T[1].isdigit() or not T[2].isdigit():
-        #     raise forms.ValidationError("生日格式不正确().")
-        # if int(T[1])>12 or int(T[2])>31:
-        #     raise forms.ValidationError("生日格式不正确.")
+        return self.cleaned_data
+
+
+
+class ForgetpwForm(forms.Form):
+    email=forms.EmailField() #用户邮箱
+    auth=forms.IntegerField() #验证码
+    password1 =forms.CharField(widget=forms.PasswordInput, required=True)#新密码1
+    password2 =forms.CharField(widget=forms.PasswordInput, required=True)#新密码2
+
+    def clean(self):
+        email=self.cleaned_data.get('email')
+        auth=self.cleaned_data.get('auth')
+        password1=self.cleaned_data.get('password1')
+        password2=self.cleaned_data.get('password2')
+        users = User.objects.filter(email = email)
+        if not self.is_valid():
+            raise forms.ValidationError("所有项都为必填项")
+        elif self.cleaned_data['password1'] != self.cleaned_data['password2']:
+            raise forms.ValidationError("两次输入的新密码不一样")
+        elif len(users)==0:
+            raise forms.ValidationError("此邮箱未注册")
+        elif auth!=544136:
+            raise forms.ValidationError("验证码不正确")
         return self.cleaned_data
