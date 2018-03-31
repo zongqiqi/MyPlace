@@ -1,11 +1,14 @@
+import json
+
 from django.shortcuts import render
 from django.urls import reverse
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect,HttpResponse
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 
 from .forms import RegisterForm,EmailForm,ChangepwForm,ProfileForm,ForgetpwForm
 from learnlogs.models import Topic,Entry
@@ -141,5 +144,26 @@ def forgetpw(request):
     context={'form':form}
     return render(request,'users/forgetpw.html')
 
-def forgetpwSendmail(request,email):
-    print(email)
+def forgetpwSendmail(request):
+    email = request.GET.get('email', '')
+    users = User.objects.filter(email = email).first()
+    data = {}
+    data['success'] = False
+    data['message'] = ''
+    if not email:
+        return HttpResponse(json.dumps(data), content_type="application/json")
+    if users:
+        code=544136
+        subject='[zongqiqi.ink]激活您的帐号'
+        message="""
+            <h2>宗七七的博客(<a href='http://zongqiqi.ink/' target=_blank>zongqiqi.ink</a>)<h2><br />
+            <p>重置密码的验证码(有效期10分钟)：%s</p>
+            <p><br/>(请保管好您的验证码)</p>
+            """ % code
+        send_to=[email]
+        msg=EmailMultiAlternatives(subject=subject,body=message,to=send_to)
+        msg.attach_alternative(message, "text/html")
+        msg.send(True)
+        data['success'] = True
+        data['message'] = 'OK'
+    return HttpResponse(json.dumps(data), content_type="application/json")

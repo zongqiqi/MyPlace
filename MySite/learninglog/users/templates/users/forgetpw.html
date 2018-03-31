@@ -27,56 +27,8 @@
 </div></div></div> 
 
 <script type="text/javascript">
-        function time_run(time_check){
-            time_check -= 1;
-            $("#btn_code").text("("+time_check+")重新获取");
-            if(time_check>0){
-                //setTimeout('time_run('+time_check+')', 1000);
-                setTimeout(function(){time_run(time_check)}, 1000);
-            }else{
-                $("#btn_code").text("获取验证码");
-                $("#btn_code").removeClass("disabled");
-            }
-        }
- 
-        $(document).ready(function() {
-            $("#btn_code").click(function(){
-                //获取填写的邮箱，并检查
-                var email_tip = $(".text-danger")[0];
-                var email = document.getElementById("email").value;
-                email_tip.innerText = '';
- 
-                var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-                if(!myreg.test(email)){
-                    email_tip.innerText = '* 请正确地填写邮箱'
-                    return false;
-                }
- 
-                //发送验证码
-                $.ajax({
-                    type:"GET",
-                    url:"{% url 'users:get_email_code' %}?email=" + email,
-                    cache:false,
-                    dataType:'json',
-                    success:function(result){
-                        if(result['success']){
-                            //提示
-                            var code_tip = $(".text-danger")[3];
-                            code_tip.innerText = '已经发送验证码到您填写的邮箱中'
- 
-                            //禁用按钮
-                            $("#btn_code").addClass("disabled");
-                            //倒计时
-                            time_run(60);
-                        }else{
-                            alert(result['message']);
-                        }                        
-                    },
-                    error:function(XMLHttpRequest, textStatus, errorThrown){
-                        alert("获取出错，稍后再试一下吧。")
-                    }
-                });
-            });
-        });
+    var email=document.getElementById("email");
+        variable=new XMLHttpRequest();
+
 </script>
 {% endblock %}
