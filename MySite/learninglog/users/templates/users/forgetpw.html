@@ -32,7 +32,13 @@ var x=document.getElementById("email");
 $(document).ready(function(){
   $("a#btn_code").click(function(){
     $.get('/users/get_email_code?email='+$("input#email").val());
+    $("a#btn_code").attr("class","btn btn-primary disabled");
+    $("a#btn_code").text("已发送");
   });
+  setTimeout(function(){
+    $("a#btn_code").attr("class","btn btn-primary");
+    $("a#btn_code").text("获取验证码");
+  },20000);
 });
 // --------------
 </script>
