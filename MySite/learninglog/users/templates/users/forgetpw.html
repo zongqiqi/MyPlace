@@ -15,7 +15,7 @@
                 {% endif %}
                 {% csrf_token %}
                 <input name="email" id="email" type="email" class="form-control" placeholder="Email地址（找回账户）" autofocus="">
-                <input name="auth" type="text" class="form-control" placeholder="验证码" required="">
+                <input name="auth" id="auth" type="text" class="form-control" placeholder="验证码" required="">
                 <input name="password1" type="password" class="form-control" placeholder="新密码" required="">
                 <input name="password2" type="password" class="form-control" placeholder="新密码，再输入一次" required="">
 
@@ -27,8 +27,13 @@
 </div></div></div> 
 
 <script type="text/javascript">
-    var email=document.getElementById("email");
-        variable=new XMLHttpRequest();
-
+var x=document.getElementById("email");
+// ------------------
+$(document).ready(function(){
+  $("a#btn_code").click(function(){
+    $.get('/users/get_email_code?email='+$("input#email").val());
+  });
+});
+// --------------
 </script>
 {% endblock %}
