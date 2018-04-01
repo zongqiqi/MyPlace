@@ -31,7 +31,7 @@ else:
     DEBUG = TEMPLATE_DEBUG = False
 
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '.zongqiqi.ink']
 # ALLOWED_HOSTS = ['zongqiqi.ink','*.zongqiqi.ink'] 
 
 

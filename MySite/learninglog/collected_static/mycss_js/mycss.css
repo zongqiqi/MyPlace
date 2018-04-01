@@ -479,3 +479,9 @@ a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dr
   font-style:italic;font-size:15px;background-color: #FFC0CB;
   border:2px solid;border-radius:15px;
 }
+
+
+/*个人信息界面 输入组*/
+.input-group{
+  margin-top: 20px
+}
