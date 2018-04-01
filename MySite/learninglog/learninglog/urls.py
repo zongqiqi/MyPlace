@@ -22,14 +22,16 @@ from django.conf import settings
 admin.autodiscover()  #若应用有admin.py，使用app的admin
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('learnlogs/',include('learnlogs.urls')),
-    path('users/',include('users.urls')),
-    path('love/',include('lovestory.urls')),
+    path('admin/', admin.site.urls),  #后台
+    path('learnlogs/',include('learnlogs.urls')),   #学习日志
+    path('users/',include('users.urls')),   #用户
+    path('love/',include('lovestory.urls')),   #个人
 
-    path('comments/',include('django_comments.urls')),
+    path('comments/',include('django_comments.urls')),   #评论
 
-    path('api/',include('learnlogs.api.urls')),
+    path('api/',include('learnlogs.api.urls')),  #restful api
+
+    path('ckeditor/', include('ckeditor_uploader.urls')),   #富文本
 
 ] 
 

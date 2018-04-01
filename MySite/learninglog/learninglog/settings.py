@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'lovestory','bootstrap3',
 
     'django_comments','django.contrib.sites', #评论系统
-    'rest_framework',
+    'rest_framework',   #restful api
+    'ckeditor','ckeditor_uploader',  #富文本
 ]
 SITE_ID = 1
 
@@ -165,6 +166,7 @@ STATICFILES_FINDERS = (
 MEDIA_URL='/media/'  #访问多媒体文件的URL
 MEDIA_ROOT=os.path.join(BASE_DIR,'media/')  ##多媒体文件的储存位置
 
+CKEDITOR_UPLOAD_PATH = 'upload/'  #富文本上传地址
 
 #未登录用户执行@login_required的操作是，重定向登陆页面
 LOGIN_URL = '/users/login'
