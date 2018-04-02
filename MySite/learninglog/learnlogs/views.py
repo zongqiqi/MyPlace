@@ -47,7 +47,6 @@ def index(request):
                 new_topic.save()                     ##保存
                 return HttpResponseRedirect(reverse('learnlogs:index'))   ##重定向
         all_topic=Topic.objects.filter(owner=request.user).order_by('date_added')
-        print(request.user)
         context={'all_topic':all_topic,'form':form,'entries':customer}
         return render(request,"learnlogs/index.html",context)
 

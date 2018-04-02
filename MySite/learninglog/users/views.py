@@ -27,7 +27,8 @@ def register(request):
         if user:
             login(request, user)
             return HttpResponseRedirect(reverse('learnlogs:index'))# Redirect to a success page.
-    return render(request, 'users/register.html', {'form': form })
+    all_topic=Topic.objects.all().order_by('date_added')
+    return render(request, 'users/register.html', {'form': form,'all_topic':all_topic})
 
 def contactme(request):
     if request.method != "POST":
@@ -37,11 +38,13 @@ def contactme(request):
         if form.is_valid():
             if form.sendmail():
                 return HttpResponseRedirect(reverse('users:sended'))
-    return render(request, 'users/contactme.html', {'form': form })
+    all_topic=Topic.objects.all().order_by('date_added')
+    return render(request, 'users/contactme.html', {'form': form,'all_topic':all_topic })
 
 def email_senddone(request):
     message='这个大神发送了一个超级好建议给了管理员'
-    context={'message':message}
+    all_topic=Topic.objects.all().order_by('date_added')
+    context={'message':message,'all_topic':all_topic}
     return render(request, 'users/send_done.html',context)
 
 @login_required
@@ -64,7 +67,8 @@ def changepw(request):
         message='密码修改失败，请重新修改。'
         context={'message':message}
         return render(request, 'users/send_done.html',context)
-    context={'form':form}
+    all_topic=Topic.objects.all().order_by('date_added')
+    context={'form':form,'all_topic':all_topic}
     return render(request, 'users/changepw.html',context)
 
 @login_required
@@ -93,7 +97,7 @@ def profile(request):
                 with open(photoname, 'wb') as pic:
                     for c in photo.chunks():
                         pic.write(c)
-                up.photo=photoname
+                up.photo=photo.name
             up.gender=gender
             up.phone=phone
             up.hobby=hobby
@@ -141,7 +145,8 @@ def forgetpw(request):
             if user is not None:
                 login(request, user)
                 return HttpResponseRedirect(reverse('learnlogs:index'))
-    context={'form':form}
+    all_topic=Topic.objects.all().order_by('date_added')
+    context={'form':form,'all_topic':all_topic}
     return render(request,'users/forgetpw.html')
 
 def forgetpwSendmail(request):

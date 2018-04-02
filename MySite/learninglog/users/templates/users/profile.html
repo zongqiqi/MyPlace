@@ -13,7 +13,7 @@
             <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
             <div class="col-md-4" style="padding: 10px;text-align: center;">
-                <img alt="50x50" src="/media/{{ user.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
+                <img alt="50x50" src="/media/pic/{{ user.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
                 <h4 align="center">{{user.username}}</h4>
                 <div>
                     <label for="file" class=" btn btn-default">更换头像</label>
