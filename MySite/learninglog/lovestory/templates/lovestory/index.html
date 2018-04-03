@@ -6,16 +6,6 @@
 
 <link rel="shortcut icon" href="{% static 'lovestory/image/headimage.png' %}" type="image/x-icon"/>
 <title>晓公举和笨笨杨的爱情长跑</title>
-
-
-	<link href="{% static 'css/default.css' %}" rel="stylesheet" type="text/css">
-	<link href="{% static 'lightbox/lightbox.min.css' %}" rel="stylesheet">
-	<script src="{% static 'lightbox/lightbox-plus-jquery.min.js' %}"></script>
-
-	<script type="text/javascript" src="{% static 'js/jquery.lightbox.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-
-
 	<style>
 .example-image-link{display:inline-block;padding:4px;margin:0 0.5rem 1rem 0.5rem;border-radius:6px;background-color:#fff;line-height:0;
 -webkit-transition:background-color 0.1s ease-out;
@@ -31,44 +21,22 @@ transition:background-color 0.1s ease-out;
 .example + .example:before{content:'';position:absolute;top:-20px;left:0;width:100%;height:1px;background-color:#ddd;}
 </style>
 
-
-
-
+<!-- bootstrap -->
+<link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- 代码界面 -->
+<link href="{% static 'css/default.css' %}" rel="stylesheet" type="text/css">
 <link href="{% static 'lovestory/css/default.css' %}" type="text/css" rel="stylesheet">
 <script type="text/javascript" src="{% static 'lovestory/js/jquery.js' %}"></script>
 <script type="text/javascript" src="{% static 'lovestory/js/jquery-1.11.1.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'lovestory/js/garden.js' %}"></script>
 <script type="text/javascript" src="{% static 'lovestory/js/functions.js' %}"></script>
-<script type="text/javascript" src="{% static 'lovestory/js/jquery.lightbox.min.js' %}"></script>
-<script type="text/javascript" src="{% static 'lovestory/js/jquery.lightbox.css' %}"></script>
-<script type="text/javascript" src="{% static 'lovestory/js/gridify.js' %}"></script>
 
 
-<!-- pics:放在这边（下面）会导致css（或者是js冲突，）div id="code"模块无法正常加载 -->
-<!-- 	<link href="{% static 'css/default.css' %}" rel="stylesheet" type="text/css">
-	<link href="{% static 'lightbox/lightbox.min.css' %}" rel="stylesheet">
-	<script src="{% static 'lightbox/lightbox-plus-jquery.min.js' %}"></script>
-
-	<script type="text/javascript" src="{% static 'js/jquery.lightbox.min.js' %}"></script>
-	<script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
-
-
-	<style>
-.example-image-link{display:inline-block;padding:4px;margin:0 0.5rem 1rem 0.5rem;border-radius:6px;background-color:#fff;line-height:0;
--webkit-transition:background-color 0.1s ease-out;
--moz-transition:background-color 0.1s ease-out;
--o-transition:background-color 0.1s ease-out;
-transition:background-color 0.1s ease-out;
-}
-.example-image-link:hover{background-color:#4ae;}
-.example-image{border-radius:5px;}
-
-.example{position:relative;left: 110px;top: 100px;}
-.example + .example{margin-top:40px;}
-.example + .example:before{content:'';position:absolute;top:-20px;left:0;width:100%;height:1px;background-color:#ddd;}
-</style> -->
-
-
+<!-- lightbox -->
+<script type="text/javascript" src="{% static 'lightbox/js/lightbox.js' %}"></script>
+<link href="{% static 'lightbox/css/lightbox.css' %}" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -117,43 +85,19 @@ transition:background-color 0.1s ease-out;
 		</div>
 	</div>
 </div>
-<div class="frame">	
-		<div class="example">
-             <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/0.jpg' %}" rel="group1" data-title="Our LOVE Our DREAM">
-            	<img alt="" class="example-image" src="{% static 'pic/small/0.jpg' %}"/>
-        	 </a>
-        	 <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/2.jpg' %}" rel="group1" data-title="BEST GIRL">
-            	<img alt="" class="example-image" src="{% static 'pic/small/2.jpg' %}"/>
-        	 </a>
-        	 <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/7.jpg' %}" rel="group1" data-title="BUT A STUPID BOY">
-            	<img alt="" class="example-image" src="{% static 'pic/small/7.jpg' %}"/>
-        	 </a>
-        	 <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/4.jpg' %}" rel="group1" data-title="I LIKE GIRL'S SMILE">
-            	<img alt="" class="example-image" src="{% static 'pic/small/4.jpg' %}"/>
-        	 </a>
-             <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/6.jpg' %}" rel="group1" data-title="AND HER EYES">
-            	<img alt="" class="example-image" src="{% static 'pic/small/6.jpg' %}"/>
-        	 </a>
-        	 <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/5.jpg' %}" rel="group1" data-title="SHE IS BEST GIFT FROM GODS">
-            	<img alt="" class="example-image" src="{% static 'pic/small/5.jpg' %}"/>
-        	 </a>
-             <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/3.jpg' %}" rel="group1" data-title="SHE IS MY PRINCESS">
-            	<img alt="" class="example-image" src="{% static 'pic/small/3.jpg' %}"/>
-        	 </a>
-        	 <a class="example-image-link" data-lightbox="example-set"  href="{% static 'pic/big/8.jpg' %}" rel="group1" data-title="AND SHE IS JUST A LITTLE GIRL">
-            	<img alt="" class="example-image" src="{% static 'pic/small/8.jpg' %}"/>
-        	 </a>
+<div class="frame" >	
+		<div class="example" style="width: 1300px;margin:auto;">
+<!-- ************************************************************************************ -->
+<section>
+    <a href="{% static 'pic/big/0.jpg' %}" data-lightbox="image-1" data-title="My caption">
+        <img src="{% static 'pic/small/0.jpg' %}">
+    </a>
+
+</section>
+<!-- ********************************************************************************************************** -->  
+
 	</div>
 </div>
-
-<!-- <div class="grid">
-	{% for image in images %}
-		<a href="{% static image %}" rel="lightbox-myGroup"><img src="{% static image %}" ></a>
-	{% empty %}
-		<h4>empty</h4>
-	{% endfor %}
-</div> -->
-<!-- 	<img src="{% static 'lovestory/loveimage/2D4A24B64319EFDF35C3315C53C8F459.jpg'%}"> -->
 
 
 
@@ -207,31 +151,6 @@ if (!document.createElement('canvas').getContext) {
 		$('.grid').gridify(options);
 	});
 </script>
-
-<!-- <div class="frame">
-    <div class="frame_1">
-        <div class="frame_1_1">
-        	<div class="min">
-                <a class="lightbox" href="" rel="group1">
-                <img src="{% static 'lovestory/loveimage/1.jpg' %}"/>
-                </a>
-            </div>
-            <div class="min">
-                <a class="lightbox" href="" rel="group1">
-                <img src="{% static 'lovestory/loveimage/2.jpg' %}"/>
-                </a>
-            </div>
-            <div class="min">
-                <a class="lightbox" href="" rel="group1">
-                <img src="{% static 'lovestory/loveimage/3.jpg' %}"/>
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
- -->
-
-
 
  <!-- <embed src="{% static 'lovestory/music/Taylor Swift - Love Story.mp3' %}" width="0" height="0"></embed> -->
  <embed src="{% static 'lovestory/music/韩安旭 - 多幸运.mp3' %}" width="0" height="0"></embed>
