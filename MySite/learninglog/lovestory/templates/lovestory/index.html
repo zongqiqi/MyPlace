@@ -36,6 +36,10 @@ transition:background-color 0.1s ease-out;
 <!-- lightbox -->
 <script type="text/javascript" src="{% static 'lightbox/js/lightbox.js' %}"></script>
 <link href="{% static 'lightbox/css/lightbox.css' %}" rel="stylesheet" type="text/css">
+
+<!-- masonry -->
+<script type="text/javascript" src="{% static 'masonry/js/masonry-docs.min.js' %}"></script>
+<!-- <link href="{% static 'masonry/css/masonry-docs.css' %}" rel="stylesheet" type="text/css"> -->
 </head>
 
 <body>
@@ -84,34 +88,21 @@ transition:background-color 0.1s ease-out;
 		</div>
 	</div>
 </div>
-<div class="frame" >	
-	<div class="example" style="width: 1300px;margin:auto;">
+<div class="frame" style="background-color: #FE8BAC;height: auto;padding-bottom: 120px">	
+	<div class="example" style="margin:auto;">
 <!-- ************************************************************************************ -->
-<div class="col-md-8 col-md-offset-2">
-        <a href="{% static 'pic/big/0.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/0.jpg' %}" style="position: absolute;left: 175px;top:100px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/2.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/2.jpg' %}" style="position: absolute;left: 325px;top: 100px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/3.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/3.jpg' %}" style="position: absolute;left: 400px;top: 230px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/4.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/4.jpg' %}" style="position: absolute;left: 325px;top: 360px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/5.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/5.jpg' %}" style="position: absolute;left: 175px;top: 360px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/6.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/6.jpg' %}" style="position: absolute;left: 100px;top: 230px;border-radius:100%;">
-        </a>
-        <a href="{% static 'pic/big/7.jpg' %}" data-lightbox="image-1" data-title="My caption">
-            <img src="{% static 'pic/small-2/7.jpg' %}" style="position: absolute;left: 250px;top: 230px;border-radius:100%;">
-        </a>        
-</div>
+        <div class="col-md-10 grid">
+            {% for pic in pics %}
+                <div class="col-sm-6 col-md-3 grid-item">
+                    <div class="thumbnail" style="border:0px;background-color: inherit;">
+                    <a href="/media/{{pic.photo}}" data-lightbox="image-1" data-title="{{pic.words}}">
+                        <img src="/media/{{pic.thumbanils}}" >
+                    </a>
+                </div></div>
+            {% endfor %}
+        </div>
+        <div style="clear:both;"></div>
 <!-- ********************************************************************************************************** -->  
-
 	</div>
 </div>
 
@@ -150,6 +141,7 @@ if (!document.createElement('canvas').getContext) {
 	adjustCodePosition();
 	$("#code").typewriter();
 }
+
 </script>
 
  <!-- <embed src="{% static 'lovestory/music/Taylor Swift - Love Story.mp3' %}" width="0" height="0"></embed> -->

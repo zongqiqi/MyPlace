@@ -14,7 +14,7 @@
             <form method="post" action="{% url 'users:author_profile' author.id %}" enctype="multipart/form-data">
                 {% csrf_token %}
             <div class="col-md-4" style="padding: 10px;text-align: center;">
-                <img alt="50x50" src="/media/pic/{{ author.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
+                <img alt="50x50" src="/media/pic/{{ author.profile.photo }}" height="200" width="200" style="border-radius:20px;" alt="{{author.username}}" />
                 <h4 align="center">{{author.username}}</h4>
                 <div>
                     {% following user author %}
