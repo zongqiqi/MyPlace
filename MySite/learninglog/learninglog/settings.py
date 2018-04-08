@@ -173,10 +173,10 @@ LOGIN_URL = '/users/login'
 
 
 #RESTful --framework配置
-REST_FRAMEWORK={
-    'DEFAULT_PERMISSION_CLASSES':[ ##指定了去读取，创建，更新或者删除对象的默认权限
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'] #django-User权限，陌生人只读
-}
+# REST_FRAMEWORK={
+#     'DEFAULT_PERMISSION_CLASSES':[ ##指定了去读取，创建，更新或者删除对象的默认权限
+#         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'] #django-User权限，陌生人只读
+# }
 
 
 
