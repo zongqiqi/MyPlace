@@ -1,0 +1,48 @@
+{% extends "learnlogs/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'mycss/myjs.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <!--login样式 -->
+<!--                <form action="{% url 'users:login' %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="sumit">log in </button>
+                <input type="hidden" name="next" value="{% url 'learnlogs:index' %}">
+                </form> -->
+
+            <form class="form-signin" action="{% url 'users:login' %}" method="post">
+                {% csrf_token %}
+                <h1 class="form-signin-heading text-muted">Sign In</h1>
+                {% if form.errors %}
+                    <ul class='form-errors'>
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <input name="username" type="text" class="form-control" placeholder="Username" required="" autofocus="">
+                <input name="password" type="password" class="form-control" placeholder="Password" required="">
+                <a href="{% url 'users:forgetpw' %}" style="float: right;">忘记密码？</a>
+                <a href="{% url 'users:register' %}" style="float: left;">没有账号?那就注册一个吧.</a>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+                <input type="hidden" name="next" value="{% url 'learnlogs:index' %}">
+            </form>
+
+            <br><br><br><br><br>
+
+
+
+
+
+ </div></div></div> 
+
+    
+{% endblock %}

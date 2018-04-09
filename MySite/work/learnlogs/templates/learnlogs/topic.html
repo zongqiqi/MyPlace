@@ -1,0 +1,50 @@
+{% extends "learnlogs/base.html" %}
+{% load pagetag %}
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2>{{topic}}</h2>
+                    <p align="right">——— {{topic.owner.username}}</p>
+                    <small><a href="{% url 'learnlogs:new_entry' topic.id %}">添加新条目</a></small>
+                </div>
+                {% for entry in entries %}
+                <div class="col-md-12 blogShort">
+                        <h2>{{ entry.name }}</h2>
+                        <em>{{ entry.date_added }}  --<a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a></em>
+                        <p class="pam">{{entry.text|truncatewords:"30"}}</p>
+                        <a class="btn btn-blog pull-right marginBottom10" href="{% url 'learnlogs:entry' entry.id %}">READ MORE</a> 
+                </div>
+                {% empty %}
+                    <h2>There is no Entries in this topic</h2>
+                {% endfor %}
+                <div class="col-md-12 blogShort">
+                    <div class="container">
+                        <br>
+                    <ul class="pagination">
+                        {% if entries.has_previous %}
+                            <li><a href="?page={{ entries.previous_page_number }}">«</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">«</a></li>
+                        {% endif %}
+
+                        {% for pg in entries.paginator.page_range %}
+                            {% circle_page entries.number pg %}
+                        {% endfor %}
+
+                        {% if entries.has_next %}
+                            <li><a href="?page={{ entries.next_page_number }}">»</a></li>
+                        {% else %}
+                            <li class="disabled"><a href="#">»</a></li>
+                        {% endif %}
+                    </ul>
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

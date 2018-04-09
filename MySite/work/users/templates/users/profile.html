@@ -1,0 +1,76 @@
+{% extends "learnlogs/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+<link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="{% static 'mycss/myjs.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container" >
+    <div class="row clearfix">
+        <div class="col-md-10 col-md-offset-1" >
+            <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <div class="col-md-4" style="padding: 10px;text-align: center;">
+                <img alt="50x50" src="/media/pic/{{ user.profile.photo }}" height="200" width="200" style="border-radius:20px;" />
+                <h4 align="center">{{user.username}}</h4>
+                <div>
+                    <label for="file" class=" btn btn-default">更换头像</label>
+                    <input type="file" name="photo" id="file" style="display:none">
+                </div>
+                <br>
+                <p align="left">最近更新</p>
+                {% for entry in entries %}
+                    <a align="left" href="{% url 'learnlogs:entry' entry.id %}" class="list-group-item" style="border-radius:5px;">{{entry.name|truncatechars:20}}</a>
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <h1 style="padding-left: 20px">个人信息</h1>
+                {% if form.errors %}
+                    <ul class='form-errors'>
+                        {% for error in form.non_field_errors %}
+                            <p>{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+                <hr>
+                    <div class="input-group">
+                        <span class="input-group-addon">名字</span>
+                        <input name="username" type="text" class="form-control" placeholder="您的名字" value="{{user.username}}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">性别</span>
+                        <input name="gender" type="text" class="form-control" placeholder="您的性别" value="{{user.profile.gender}}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">电话</span>
+                        <input name="phone" type="text" class="form-control" placeholder="您的电话" value="{{user.profile.phone}}" >
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">邮箱</span>
+                        <input name="email" type="text" class="form-control" placeholder="您的邮箱" value="{{user.email}}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">生日</span>
+                        <input name="birth_date" type="text" class="form-control" placeholder="请输入您的生日（(请输入正确格式)YYYY-MM-DD）" value="{{user.profile.birth_date|date:'Y-m-d'}}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">爱好</span>
+                        <input name="hobby" type="text" class="form-control" placeholder="您的爱好" value="{{user.profile.hobby}}">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">地址</span>
+                        <input name="adress" type="text" class="form-control" placeholder="您的地址可以告诉我们吗？" value="{{user.profile.address}}">
+                    </div>
+                    <div class="input-group" style="width: 100%;">
+                        <label>个人介绍 ：</label>
+                        <textarea name="describe" class="form-control" rows="5" placeholder="Tell us a little bit about yourself." >{{user.profile.describe}}</textarea>
+                    <input type="submit" value="提交" style="background-color:#1c1c1c;color: white;margin-top: 20px">
+                    </div>
+                </form>
+            </div>
+ </div></div></div> 
+<br><br><br><br><br><br><br>
+    
+{% endblock %}

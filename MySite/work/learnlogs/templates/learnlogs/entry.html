@@ -1,0 +1,112 @@
+{% extends "learnlogs/base.html" %}
+{% load comments %} <!-- #导入评论库模块的模版标签 -->
+{% load staticfiles %}
+
+{% block head %}
+ <link href="{% static 'code.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2><a href="{% url 'learnlogs:topic' entry.topic.id%}">{{entry.topic}}</a> -- {{entry.name}}</h2>
+                    <br>
+                    <small>{{ entry.date_added }} ---<a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a> &nbsp;&nbsp;<a href="{% url 'learnlogs:edit_entry' entry.id %}"> Edit entry</a></small>
+                </div>
+                <div class="col-md-12 blogShort" style="box-shadow: 1px 1px 10px #888888;padding: 20px">
+                    {{ entry.text |safe }}
+                </div>
+
+
+
+<!-- ************************************************************************ -->
+                <div class="col-md-12 blogShort" style="padding-top: 10px">
+                <div class="panel panel-default">
+                    <div class="panel-heading"  {% if user.is_authenticated %} style="display:none;" {% endif%}>
+                        <h4>评论列表</h4>
+                    </div>
+                    <div class="panel-body">
+                        {% get_comment_list for entry as comments %}
+                        {% for comment in comments %}
+                            <div class="blog_comment" name="F{{comment.id}}">
+                                <p class="comment_title">
+                                    #{{ comment.submit_date|date:"Y-m-d H:i"}} @ {{ comment.user_name }}：
+                                </p>
+                                <p class="comment_content">{{ comment.comment }}</p>
+                            </div>            
+                        {% empty %}
+                            <span>机智如你，不想发表一下意见吗？</span>
+                        {% endfor %}
+                    </div>
+                </div></div>
+
+<!-- ***************************************************************** -->
+                <div class="col-md-12 blogShort" style="padding-top: 10px">
+                    <div class="panel panel-default">
+                        <div class="panel-heading"><h4>新的评论</h4></div>
+                        {% get_comment_form for entry as blog_form %}
+                        <div class="panel-body">
+                            <form id="comment_form" class="form-horizontal" 
+                                  action="{% comment_form_target %}"  method="post" type="hidden">
+                                {% csrf_token %}
+                                {{ blog_form.object_pk }}
+                                {{ blog_form.content_type }}
+                                {{ blog_form.timestamp }}
+                                {{ blog_form.site }}
+                                {{ blog_form.submit_date }}
+                                {{ blog_form.security_hash }}
+                             
+                                {# 用户名字段，这个后面会修改为登录用户评论，无需填这个 #}
+                                <div class="control-group" {% if user.is_authenticated %} style="display:none;" {% endif%}>
+                                    <div class="controls">
+                                        <input type="text" 
+                                               id="id_name" class="input-xlarge" name="name" 
+                                               placeholder="请输入您的用户名" 
+                                               value="{{ user.username }}" required="" />
+                                    </div>
+                                </div>
+                 
+                                {# 邮箱地址字段 #}
+                                <div class="control-group" {% if user.is_authenticated %} style="display:none;" {% endif%}>
+                                    <div class="controls">
+                                        <input type="email"
+                                               id="id_email" class="input-xlarge" name="email" 
+                                               placeholder="请输入您的邮箱地址" 
+                                               value="{{ user.email }}" required=""/>
+                                    </div>
+                                </div>
+                                {# 评论内容 #}
+                                <a name="newcomment" id="newcomment"></a>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <textarea id="id_comment" class="input-xlarge comment" name="comment" placeholder="请输入评论内容" style="width: 100%;height: 8em;overflow-y: visible" required=""></textarea>
+                                    </div>
+                                </div>
+                 
+                    {# 防垃圾评论 #}
+                    <p style="display:none;">
+                        <label for="id_honeypot">如果你在该字段中输入任何内容，你的评论就会被视为垃圾评论。</label>
+                        <input type="text" name="honeypot" id="id_honeypot">
+                    </p>
+                 
+                    {# 表单按钮 #}
+                    <div class="controls">
+                        <div class="form-actions">
+                            <input class="btn btn-info" id="submit_btn" type="submit" name="submit" value="提交"/>
+                            <input type="hidden" name="next" value="{%url 'learnlogs:entry' entry.id%}"/>
+                        </div>
+                    </div>
+                 </form>
+</div></div></div></div>
+<!-- ****************************************************************** -->
+
+
+
+
+
+        </div>
+    </div>
+</div>
+{% endblock %}

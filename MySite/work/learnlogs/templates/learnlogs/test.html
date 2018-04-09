@@ -1,0 +1,65 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>宗七七的学习日志</title>
+
+    <meta charset="UTF-8">  
+    <!-- 引入Jquery -->
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.js' %}"></script>    
+    <!-- 引入 Bootstrap -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>  --><!-- 會產生下拉框不反應的問題 -->
+
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- 搜索框 -->
+    <link href="{% static 'mycss_js/test.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'mycss_js/test.js' %}"></script>
+
+
+
+
+</head>
+<body>
+    
+
+
+
+<div class="container">
+  <nav class="navbar navbar-inverse">
+
+
+
+    
+  
+    <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Action</a></li>
+                        <li><a href="#">Another action</a></li>
+                        <li><a href="#">Something else here</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+
+        
+    </ul>
+  </nav>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

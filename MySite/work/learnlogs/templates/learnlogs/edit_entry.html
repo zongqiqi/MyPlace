@@ -1,0 +1,33 @@
+{% extends "learnlogs/base.html" %}
+
+
+{% block sidebar%}
+    {% for topic in topics %}
+    <li><a href="{% url 'learnlogs:topic' topic.id %}">{{ topic }}</a></li>
+    {% empty %}
+    <li>No topics have been added yet! </li>
+    {% endfor %}
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-8 col-md-offset-2" >
+                <div class="jumbotron">
+                    <h2><a href="{% url 'learnlogs:topic' topic.id%}">{{topic}}</a> -- 修改条目</h2>
+                </div>
+                <div class="col-md-12 blogShort">
+                    <form action="{% url 'learnlogs:edit_entry' entry.id %}" method="post">
+                        {% csrf_token %}
+                        {{form.as_p}}
+                        <input type="submit" value="提交" style="background-color:#1c1c1c;color: white">
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+     $("textarea#id_text").attr("cols","116");
+</script>
+{% endblock %}

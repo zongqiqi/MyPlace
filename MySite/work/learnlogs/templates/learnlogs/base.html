@@ -1,0 +1,141 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>安九材料厂学习平台</title>
+
+    <meta charset="UTF-8">  
+    <!-- 引入Jquery -->
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'jquery/jquery-3.3.1.js' %}"></script>    
+    <!-- 引入 Bootstrap -->
+    <link href="{% static 'bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'bootstrap/css/bootstrap.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <!-- <script type="text/javascript" src="{% static 'bootstrap/js/bootstrap.js' %}"></script>  --><!-- 會產生下拉框不反應的問題 -->
+
+    <link href="http://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"><!-- 搜索框 -->
+    <link href="{% static 'mycss_js/mycss.css' %}" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="{% static 'mycss_js/myjs.js' %}"></script>
+
+    <link rel="shortcut icon" href="/static/favicon.ico">
+
+    <!-- <script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script> --><!-- 仅admin后台使用富文本编辑器 -->
+
+    {% block head %}{% endblock %}
+
+</head>
+<body >
+
+
+<!-- Sidebar *************************************-->
+    <div id="wrapper">
+        <div class="overlay"></div>
+        <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
+            <ul class="nav sidebar-nav">
+                <li class="sidebar-brand"><a href="{% url 'learnlogs:index' %}">主题</a></li>
+                    {% for topic in all_topic %}
+                        <li><a href="{% url 'learnlogs:topic' topic.id %}">{{ topic }}</a></li>
+                    {% empty %}
+                        <li style="color: white">No topics have been added yet! </li>
+                    {% endfor %}
+                    {% block sidebar %}  
+                    {% endblock %}                
+            </ul>
+        </nav>
+        <!-- /#sidebar-wrapper **************************************************-->
+
+<!-- Page Content -->
+<div id="page-content-wrapper">
+            <!-- 导航条显示按钮 -->
+            <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+                <span class="hamb-top"></span>
+                <span class="hamb-middle"></span>
+                <span class="hamb-bottom"></span>
+            </button>
+
+
+<!-- nav -->
+    <div class="container">
+        <nav class="navbar  navbar-static-top">
+            <div class="container" style="margin-top: 10px">
+                <div class="navbar-header" >
+                    <button aria-controls="navbar" aria-expanded="false" class="navbar-toggle collapsed" data-target="#navbar" data-toggle="collapse" type="button">
+                    </button>
+                    <a class="navbar-brand" href="{% url 'learnlogs:index' %}" style="font-size:40px;color: black">
+                        安九培训学习
+                    </a>
+                </div>
+                <div class="navbar-brand-centered" style="background-color: white">
+                    <ul class="nav navbar-nav">
+                        <li class="search bar7">
+                              <form action="{% url 'learnlogs:search' %}" method="post" style="padding: 3px">
+                                {% csrf_token %}
+                                <input name='search' type="text" placeholder="请输入您要搜索的内容..." >
+                                <button class="search" type="submit" ></button>
+                              </form>
+                        </li>
+                    </ul>
+                </div>
+
+
+
+
+                <!-- 账户表单 -->
+                <div class=" navbar-nav navbar-right" style="color: black;font-size: 20px;margin-top:10px">
+                {% if user.is_authenticated %}
+
+
+<!--                     <div class="dropdown">
+                        <div class="dropdown-toggle " data-toggle="dropdown" role="button" aria-expanded="false">{{ user.username }}<span class="caret"></span></div>
+                        <ul class="dropdown-menu" role="menu" >
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  Log-out</a></li>
+                      </ul> 
+                    </div>   -->
+                    <li class="dropdown" style="list-style: none">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" style="color: #1a1a1a">{{ user.username }}<span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{% url 'users:profile' %}">个人中心</a></li>
+                            <li><a href="{% url 'users:changepw' %}">修改密码</a></li>
+                            <li class="divider"></li>
+                            <li><a href="{% url 'users:logout' %}"><span class="glyphicon glyphicon-off"></span>  注销</a></li>
+                        </ul>
+                    </li>
+
+
+                {% else %}
+                    <a class="navbar-brand" href="{% url 'users:login' %}" style="color: #1c1c1c">Log-in</a>
+                    <a class="navbar-brand" href="#" style="color: #1c1c1c">-</a>
+                    <a class="navbar-brand" href="{% url 'users:register' %}" style="color: #1c1c1c">Register</a>
+                {% endif %}
+                </div>
+            </div>
+        </nav>
+    </div>
+
+<!-- /#wrapper -->
+{% block content %} {% endblock %}
+
+
+</div>
+<br>
+<br>
+<br>
+<footer class="container-fluid text-center bg-lightgray">
+        <div class="copyrights" style="margin-top:25px;">
+            <p>Learning Logs © 2018, All Rights Reserved
+                <br>
+                <span>Web Design By: Zong Qiqi</span></p>
+            <p><a href="{% url 'users:contactme' %}" target="_blank">Contact Me <span class="glyphicon glyphicon-tree-deciduous"></span> </a></p>
+        </div>
+</footer>
+</body>
+</html>
+
+
+
