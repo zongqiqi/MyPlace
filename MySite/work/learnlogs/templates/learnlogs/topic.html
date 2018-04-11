@@ -11,12 +11,12 @@
                     <small><a href="{% url 'learnlogs:new_entry' topic.id %}">添加新条目</a></small>
                 </div>
                 {% for entry in entries %}
-                <div class="col-md-12 blogShort">
+                    <div class="col-md-12 blogShort">
                         <h2>{{ entry.name }}</h2>
-                        <em>{{ entry.date_added }}  --<a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a></em>
-                        <p class="pam">{{entry.text|truncatewords:"30"}}</p>
-                        <a class="btn btn-blog pull-right marginBottom10" href="{% url 'learnlogs:entry' entry.id %}">READ MORE</a> 
-                </div>
+                        <p class="pam">{{entry.text|markdown_filter }}""</p>
+                        <span class="glyphicon glyphicon-time"></span><span>{{ entry.date_added }}  -- <a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a></span>
+                        <a class="btn btn-blog pull-right marginBottom10" href="{% url 'learnlogs:entry' entry.id %}">查看详情</a> 
+                    </div>
                 {% empty %}
                     <h2>There is no Entries in this topic</h2>
                 {% endfor %}

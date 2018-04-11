@@ -5,6 +5,7 @@
 {% block head %}
 <link href="{% static 'mycss/mycss.css' %}" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="{% static 'mycss/myjs.js' %}"></script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=wuLzvFIFbTwR38UbVj312ZOUWnVh31BH"></script>
 {% endblock %}
 
 {% block content %}
@@ -29,7 +30,7 @@
                 {% endfor %}
             </div>
             <div class="col-md-6">
-                <h1 style="padding-left: 20px">个人信息</h1>
+                <h1 style="padding-left: 20px">厂站信息</h1>
                 {% if form.errors %}
                     <ul class='form-errors'>
                         {% for error in form.non_field_errors %}
@@ -39,41 +40,134 @@
                 {% endif %}
                 <hr>
                     <div class="input-group">
-                        <span class="input-group-addon">名字</span>
+                        <span class="input-group-addon">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称</span>
                         <input name="username" type="text" class="form-control" placeholder="您的名字" value="{{author.username}}" disabled="disabled">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">性别</span>
-                        <input name="gender" type="text" class="form-control" placeholder="您的性别" value="{{author.profile.gender}}" disabled="disabled">
+                        <span class="input-group-addon">联系电话</span>
+                        <input name="phone" type="text" class="form-control" placeholder="您的电话" value="13233118777" disabled="disabled">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">电话</span>
-                        <input name="phone" type="text" class="form-control" placeholder="您的电话" value="****" disabled="disabled">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">邮箱</span>
+                        <span class="input-group-addon">联系邮箱</span>
                         <input name="email" type="text" class="form-control" placeholder="您的邮箱" value="{{author.email}}" disabled="disabled">
                     </div>
                     <div class="input-group">
-                        <span class="input-group-addon">生日</span>
-                        <input name="birth_date" type="text" class="form-control" placeholder="请输入您的生日（(请输入正确格式)YYYY-MM-DD）" value="{{author.profile.birth_date|date:'Y-m-d'}}" disabled="disabled">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">爱好</span>
-                        <input name="hobby" type="text" class="form-control" placeholder="您的爱好" value="{{author.profile.hobby}}" disabled="disabled">
-                    </div>
-                    <div class="input-group">
-                        <span class="input-group-addon">地址</span>
+                        <span class="input-group-addon">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址</span>
                         <input name="adress" type="text" class="form-control" placeholder="您的地址可以告诉我们吗？" value="{{author.profile.address}}" disabled="disabled">
                     </div>
-                    <div class="input-group" style="width: 100%;">
-                        <label>个人介绍 ：</label>
-                        <textarea name="describe" class="form-control" rows="5" placeholder="Tell us a little bit about yourself." disabled="disabled">{{author.profile.describe}}</textarea>
-                    <!-- <input type="submit" value="提交" style="background-color:#1c1c1c;color: white;margin-top: 20px"> -->
-                    </div>
+                    
+                    <div style="width:100%;height:300px;border:#ccc solid 1px;margin-top: 20px" id="dituContent"></div>                  
+                    
                 </form>
             </div>
  </div></div></div> 
 <br><br><br><br><br><br><br>
+
+<script type="text/javascript">
+    //创建和初始化地图函数：
+    function initMap(){
+        createMap();//创建地图
+        setMapEvent();//设置地图事件
+        addMapControl();//向地图添加控件
+        addMarker();//向地图中添加marker
+    }
     
+    //创建地图函数：
+    function createMap(){
+        var map = new BMap.Map("dituContent");//在百度地图容器中创建一个地图
+        var point = new BMap.Point(116.607501,30.639615);//定义一个中心点坐标
+        map.centerAndZoom(point,12);//设定地图的中心点和坐标并将地图显示在地图容器中
+        window.map = map;//将map变量存储在全局
+        var marker = new BMap.Marker(point);  // 创建标注
+        map.addOverlay(marker);              // 将标注添加到地图中
+        var opts = {
+      width : 100,     // 信息窗口宽度
+      height: 100,     // 信息窗口高度
+      title : "安九铁路工地材料厂" , // 信息窗口标题
+      enableMessage:true,//设置允许信息窗发送短息
+      message:""
+    }
+    var infoWindow = new BMap.InfoWindow("地址：安徽省安庆市潜山县梅城镇八一开发区B1栋", opts);  // 创建信息窗口对象 
+    marker.addEventListener("click", function(){          
+        map.openInfoWindow(infoWindow,point); //开启信息窗口
+    });
+    }
+    
+    //地图事件设置函数：
+    function setMapEvent(){
+        map.enableDragging();//启用地图拖拽事件，默认启用(可不写)
+        map.enableScrollWheelZoom();//启用地图滚轮放大缩小
+        map.disableDoubleClickZoom();//禁用鼠标双击放大
+        map.enableKeyboard();//启用键盘上下左右键移动地图
+    }
+    
+    //地图控件添加函数：
+    function addMapControl(){
+                //向地图中添加缩略图控件
+    var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+    map.addControl(ctrl_ove);
+        //向地图中添加比例尺控件
+    var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
+    map.addControl(ctrl_sca);
+    }
+
+    // //标注点数组
+    // var markerArr = [{title:"安九材料厂",content:"我的备注",point:"116.607501|30.639615",isOpen:0,icon:{w:21,h:21,l:0,t:0,x:6,lb:5}}
+    //      ];
+    // //创建marker
+    // function addMarker(){
+    //     for(var i=0;i<markerArr.length;i++){
+    //         var json = markerArr[i];
+    //         var p0 = json.point.split("|")[0];
+    //         var p1 = json.point.split("|")[1];
+    //         var point = new BMap.Point(p0,p1);
+    //         var iconImg = createIcon(json.icon);
+    //         var marker = new BMap.Marker(point,{icon:iconImg});
+    //         var iw = createInfoWindow(i);
+    //         var label = new BMap.Label(json.title,{"offset":new BMap.Size(json.icon.lb-json.icon.x+10,-20)});
+    //         marker.setLabel(label);
+    //         map.addOverlay(marker);
+    //         label.setStyle({
+    //                     borderColor:"#808080",
+    //                     color:"#333",
+    //                     cursor:"pointer"
+    //         });
+            
+    //         (function(){
+    //             var index = i;
+    //             var _iw = createInfoWindow(i);
+    //             var _marker = marker;
+    //             _marker.addEventListener("click",function(){
+    //                 this.openInfoWindow(_iw);
+    //             });
+    //             _iw.addEventListener("open",function(){
+    //                 _marker.getLabel().hide();
+    //             })
+    //             _iw.addEventListener("close",function(){
+    //                 _marker.getLabel().show();
+    //             })
+    //             label.addEventListener("click",function(){
+    //                 _marker.openInfoWindow(_iw);
+    //             })
+    //             if(!!json.isOpen){
+    //                 label.hide();
+    //                 _marker.openInfoWindow(_iw);
+    //             }
+    //         })()
+    //     }
+    // }
+    // //创建InfoWindow
+    // function createInfoWindow(i){
+    //     var json = markerArr[i];
+    //     var iw = new BMap.InfoWindow("<b class='iw_poi_title' title='" + json.title + "'>" + json.title + "</b><div class='iw_poi_content'>"+json.content+"</div>");
+    //     return iw;
+    // }
+    // //创建一个Icon
+    // function createIcon(json){
+    //     var icon = new BMap.Icon("http://app.baidu.com/map/images/us_mk_icon.png", new BMap.Size(json.w,json.h),{imageOffset: new BMap.Size(-json.l,-json.t),infoWindowOffset:new BMap.Size(json.lb+5,1),offset:new BMap.Size(json.x,json.h)})
+    //     return icon;
+    // } 
+    
+    initMap();//创建和初始化地图
+</script>
 {% endblock %}
