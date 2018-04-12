@@ -18,7 +18,7 @@ import numpy as np
 from multiprocessing import Process,Queue
 import jieba
 
-from WordFunc import TestDict
+import WordFunc
 
 Default_APIKey='******'
 Default_SecretKey='*********'
@@ -137,10 +137,8 @@ class BaiDuVoice():
                 save_count = SAVE_LENGTH
             else:
                 save_count -= 1
-
             if save_count < 0:
                 save_count = 0
-
             if save_count > 0:
                 # 将要保存的数据存放到save_buffer中
                 save_buffer.append( string_audio_data )
@@ -170,13 +168,12 @@ class BaiDuVoice():
         # 处理返回数据
         return r.json()
 
-v=BaiDuVoice()
 def tts(text='你忘记输入文字了，笨蛋'):
     f=v.voice_save(v.tts(text)) #语音转文字，保存语音文件
     v.voice_play(f)  #播放语音文件
 
 def voice_save(queue):
-    filename=v.get_voice(queue)  #语音采集
+    v.get_voice(queue)  #语音采集
 
 def read(queue):
     tts('语音识别开始')
@@ -187,14 +184,15 @@ def read(queue):
             print(t['result'])  # 打印文字
             cut=set(jieba.cut(t['result'][0])) #结巴分词
             print(cut)
-            orders=cut&set(TestDict.keys())   #求识别结果和函数的的交集
+            orders=cut&set(WordFunc.TestDict.keys())   #求识别结果和函数的的交集
             if orders:
                 for order in orders:
-                    TestDict[order]()       #执行函数
+                    WordFunc.TestDict[order]()       #执行函数
         else:
             tts("识别错误")
 
 def main():
+    v=BaiDuVoice()
     q=Queue()
     p1=Process(target=voice_save,args=(q,))
     p2=Process(target=read,args=(q,))
