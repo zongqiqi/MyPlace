@@ -4,7 +4,7 @@
 """
 import functools
 
-import stt_multiprocess
+import stt_tts
 
 TestDict={}
 
@@ -25,7 +25,7 @@ def TextFunc(text):
 
 @TextFunc('王晓')
 def func():
-    stt_multiprocess.tts("王晓是你的好朋友呀")
+    stt_tts.tts_paly("王晓是你的好朋友呀")
 
 if __name__ == '__main__':
     print(TestDict)
