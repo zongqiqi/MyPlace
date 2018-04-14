@@ -76,12 +76,19 @@ def entry(request,entry_id):
     """特定条目页面"""
     entry=Entry.objects.get(id=entry_id)
     ##支持Markdown
-    entry.text=markdown.markdown(entry.text,
-                                  extensions=[
-                                     'markdown.extensions.extra',
-                                     'markdown.extensions.codehilite',
-                                     'markdown.extensions.toc',
-                                  ])
+    # entry.text=markdown.markdown(entry.text,
+    #                               extensions=[
+    #                                  'markdown.extensions.extra',
+    #                                  'markdown.extensions.codehilite',
+    #                                  'markdown.extensions.toc',
+    #                               ])
+    md = markdown.Markdown(extensions=[
+            'markdown.extensions.extra',
+            'markdown.extensions.codehilite',
+            'markdown.extensions.toc',
+        ])
+    entry.text=md.convert(entry.text)
+    entry.toc=md.toc
     all_topic=Topic.objects.order_by('date_added')
     context={'entry':entry,'all_topic':all_topic}
     return render(request,"learnlogs/entry.html",context)

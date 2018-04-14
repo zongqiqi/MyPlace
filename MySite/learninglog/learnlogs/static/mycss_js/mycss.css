@@ -485,3 +485,35 @@ a.dropdown-toggle:hover, a.dropdown-toggle:visited, a.dropdown-toggle:link, a.dr
 .input-group{
   margin-top: 20px
 }
+
+
+/*markdown边侧栏目录*/
+.toc ul li a{
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+}
+.toc ul li{
+  list-style-type:none;
+  padding-top: 5px;
+}
+.toc ul{
+  padding: 0px;
+}
+.widget-title{
+  text-align:center;
+}
+.row>.col-md-2{
+  padding: 0px;
+}
+
+/*回到顶部*/
+ p#back-to-top{
+            position:fixed;
+            display:none;
+            bottom:100px;
+            right:80px;
+        }
+a>.glyphicon-menu-up{
+  font-size:38px;
+}
