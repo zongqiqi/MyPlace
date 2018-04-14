@@ -39,6 +39,14 @@ $(document).ready(function () {
   $('[data-toggle="offcanvas"]').click(function () {
         $('#wrapper').toggleClass('toggled');
   });  
+  
+  // 没有markdown目录，即关闭“文章目录”和“<hr>”
+    var catalog=$('.widget-content'),
+        detail=$('.toc>ul');
+        if (detail.text()==""){
+            catalog.remove();
+            console.log('测试');
+        };
 });
 
 
@@ -68,3 +76,5 @@ $(function(){
             });
         });
     });
+
+

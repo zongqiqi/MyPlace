@@ -22,9 +22,14 @@ class Entry(models.Model):
     text=RichTextUploadingField()
     # text=RichTextField('  请输入内容（Markdown语法）')         #仅admin后台使用富文本编辑器
     date_added=models.DateTimeField(auto_now_add=True)  #创建时间
+    views = models.PositiveIntegerField(default=0)#阅读量
     class Meta:
         verbose_name_plural='entries' #设置条目的复数形式
         db_table='learning_logs_entry'
     def __str__(self):
         """模型的字符串表示"""
         return self.text[:50] + "..."
+    def increase_views(self):
+        '''阅读量自增'''
+        self.views += 1
+        self.save(update_fields=['views'])

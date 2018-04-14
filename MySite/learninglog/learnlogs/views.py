@@ -75,6 +75,7 @@ def topic(request,topic_id):
 def entry(request,entry_id):
     """特定条目页面"""
     entry=Entry.objects.get(id=entry_id)
+    entry.increase_views()
     ##支持Markdown
     # entry.text=markdown.markdown(entry.text,
     #                               extensions=[
