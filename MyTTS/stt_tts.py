@@ -16,6 +16,7 @@ from pydub import AudioSegment
 from pyaudio import PyAudio, paInt16
 
 import WordFunc
+import Tuling
 
 class Voice:
     """语音类，三个主要方法：保存语音、播放语音和录音"""
@@ -180,6 +181,9 @@ def commute(queue):
             if orders:
                 for order in orders:
                     WordFunc.TestDict[order]()       #执行函数
+            else:##如果命令不在WordFunc中，则调用图灵机器人进行回复
+                res=Tuling.tuling(t['result'])
+                tts_paly(res)
         else:
             tts_paly("识别错误")
 
