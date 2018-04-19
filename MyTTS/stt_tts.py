@@ -36,7 +36,7 @@ class Voice:
         audio.export(file_name, format='wav')
         return file_name
 
-    def play(self,file_name):
+    def play(self,file_name,dictd):
         """播放语音文件，传递语音文件地址"""
         CHUNK = 1024
         wf = wave.open(file_name, 'rb')
@@ -55,7 +55,7 @@ class Voice:
             stream.close()
             p.terminate()  
 
-    def record(self,queue,recording):
+    def record(self,queue,dictd):
         """录音程序"""
         def save_wave_file(filename, data,SAMPLING_RATE):
             """保存录音程序"""
@@ -108,9 +108,6 @@ class Voice:
                     print(filename, "saved")
                     queue.put(filename)##保存文件之后，将文件名放进队列
             i+=1
-        if not recording:
-            sys.exit()
-
 
 Default_APIKey='da505d4RG20XeoTZpZH75p7C'
 Default_SecretKey='032a45ddeb90d3c399f3f730b6251058'
@@ -158,30 +155,35 @@ class BaiDuVoice:
         #['北京欢迎你，'], 'sn': '279396417541523540222'}
         return r.json()
 
+bvapi=BaiDuVoice()
+voice=Voice()
+
+
+########****************************************************************
 class tts_play(threading.Thread):
     '''语音转文字并播放'''
-    def __init__(self,text='你忘记输入文字了，笨蛋'):
+    def __init__(self,dictd,text='你忘记输入文字了，笨蛋'):
         super(tts_play, self).__init__()
         self.text=text
         self.start()
+        self.dictd=dictd
 
     def run(self):
         '''重写run方法'''
-        subthread = threading.Thread(target=(lambda text:voice.play(voice.save(bvapi.tts(text)))),args=(self.text,))
+        subthread = threading.Thread(target=self.play,)
         subthread.setDaemon(True)
         subthread.start()
 
-    def ternate(self):
-        '''更改状态'''
-        dictd['stop']=True
+    def play(self):
+        voice.play(voice.save(bvapi.tts(self.text)),self.dictd)
 
-# # def record(queue):
-# #     """录音程序"""
-# #     voice.record(queue)
+    # def ternate(self):
+    #     '''更改状态'''
+    #     dictd['stop']=True
 
-def commute(queue,recording):
+def commute(queue,dictd):
     """语音解析"""
-    tts_paly('语音识别开始')
+    tts_play(dictd,'语音识别开始')
     stop_play=False
     while True:
         filename=queue.get(True)
@@ -190,7 +192,9 @@ def commute(queue,recording):
             print(t['result'])  # 打印文字
             if '停止' in t['result'][0]:
                 dictd['stop']=True
-            if '退出程序' in t['result'][0]:
+            elif '开始' in t['result'][0]:
+                dictd['stop']=False
+            elif '退出程序' in t['result'][0]:
                 dictd['recording']=False
             cut=set(jieba.cut(t['result'][0])) #结巴分词
             print(cut)
@@ -201,20 +205,17 @@ def commute(queue,recording):
             else:##如果命令不在WordFunc中，则调用图灵机器人进行回复
                 res=Tuling.tuling(t['result'])
                 print(res)
-                tts_paly(res)
+                tts_play(dictd,res)
         else:
-            tts_paly("识别错误")
-
-manager = Manager()  #数据共享，控制录音进程及播放线程
-dictd = manager.dict()
-dictd={'stop':False,'recording':True}
-voice=Voice()
-bvapi=BaiDuVoice()
-queue=Queue()
+            tts_play(dictd,"识别错误")
 
 
 if __name__ == '__main__':
-    p1=Process(target=voice.record,args=(self.queue,)) #录音进程
-    p2=Process(target=commute,args=(self.queue,)) #解析进程
+    manager = Manager()  #数据共享，控制录音进程及播放线程
+    dictd = manager.dict()
+    dictd={'stop':False,'recording':True}
+    queue=Queue()
+    p1=Process(target=voice.record,args=(queue,dictd)) #录音进程
+    p2=Process(target=commute,args=(queue,dictd)) #解析进程
     p1.start()
     p2.start()
