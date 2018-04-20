@@ -45,3 +45,24 @@ User.add_to_class('following',#关注谁
                                     through=Contact,
                                     related_name='followers', #被谁关注
                                     symmetrical=False))#非对称关注
+
+
+
+
+
+
+
+
+
+class Friends(models.Model):
+    """个人信息"""
+    name=models.CharField(max_length=200)
+    email=models.EmailField()
+    birth_date = models.DateField(null=True, blank=True)#生日
+    describe = models.TextField(max_length=500, blank=True)#个人介绍
+    gender = models.CharField(max_length=5,blank=True,null=True)##性别
+    hobby=models.CharField(max_length=200,blank=True)#爱好
+    phone=models.CharField(max_length=20,blank=True,null=True)
+    address=models.CharField(max_length=200,blank=True)#地址
+    #图片字段，上传之/media/...
+    photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True,default='default.png')#头像

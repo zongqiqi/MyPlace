@@ -24,8 +24,8 @@ def TextFunc(text):
 ##---------------------------------------------------
 
 @TextFunc('王晓')
-def func():
-    tts_play("王晓是你的好朋友呀")
+def func(dictd):
+    tts_play(dictd,"王晓是你的好朋友呀")
 
 if __name__ == '__main__':
     print(TestDict)

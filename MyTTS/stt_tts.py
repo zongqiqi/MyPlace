@@ -201,7 +201,7 @@ def commute(queue,dictd):
             orders=cut&set(WordFunc.TestDict.keys())   #求识别结果和函数的的交集
             if orders:
                 for order in orders:
-                    WordFunc.TestDict[order]()       #执行函数
+                    WordFunc.TestDict[order](dictd)       #执行函数
             else:##如果命令不在WordFunc中，则调用图灵机器人进行回复
                 res=Tuling.tuling(t['result'])
                 print(res)
