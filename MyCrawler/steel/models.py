@@ -1,9 +1,13 @@
+import os
+
 from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base#基类
 from sqlalchemy import Column,Integer,String,DateTime
 
 Base=declarative_base()
+
+BASE_DIR=os.path.dirname(__file__)
 
 class Steel(Base):
     __tablename__='Steel'
@@ -19,8 +23,9 @@ class Steel(Base):
     def __repr__(self):
         return "<Steel(pingming='%s',guige='%s')>" % (self.pingming,self.guige)
 
-def create_database(city='Hefei'):
-    engine=create_engine("sqlite:///steel/%s_steel.db"%city,echo=True)
+def create_database(city='Nanjing'):
+    engine=create_engine("sqlite:///%s/steel/%s_steel.db"%(BASE_DIR,city),echo=True)
+    print(engine)
     Session=sessionmaker(bind=engine)
     metadata = MetaData()
     session=Session()

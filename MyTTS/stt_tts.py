@@ -25,7 +25,8 @@ class Voice:
         """构造函数，创建目录"""
         if not os.path.exists(path):
             os.makedirs(path)
-        self.path=path
+        BASE_DIR=os.path.dirname(__file__)
+        self.path=os.path.join(BASE_DIR,path)
 
     def save(self,data,name='1.mp3'):
         """保存语音文件:传递文件名及语音数据，返回文件路径"""

@@ -26,6 +26,7 @@ urlpatterns = [
     path('new_entry/<int:topic_id>',views.new_entry,name='new_entry'),      ##新建条目页面
     path('edit_entry/<int:entry_id>',views.edit_entry,name='edit_entry'),      ##编辑条目页面
     path('search',views.search,name='search'),      ##搜索页面
+    path('steeldata',views.steeldata,name='steeldata'),##echarts 
     
     path('test',views.test,name='test'),                                    ##测试
 ]

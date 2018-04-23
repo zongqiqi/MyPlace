@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 
+from sqlalchemy import create_engine, Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base#基类
+from sqlalchemy import Column,Integer,String,DateTime
+
 class Topic(models.Model):
     """学习主题"""
     owner=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -28,3 +33,29 @@ class Entry(models.Model):
     def __str__(self):
         """模型的字符串表示"""
         return self.text[:50] + "..."
+
+
+
+
+
+#---------------------------------------------------
+class Data:
+    '''方便为data绑定属性，D.a=[1,2,3]'''
+    pass
+
+Base=declarative_base()
+
+class Steel(Base):
+    '''ORM类'''
+    __tablename__='Steel'
+    id = Column(Integer, primary_key=True)
+    time=Column(DateTime)
+    pingming=Column(String(32))
+    guige=Column(String(32))
+    caizhi=Column(String(32))
+    chandi=Column(String(32))
+    jiage=Column(Integer)
+    zhangtie=Column(Integer)
+    beizhu=Column(String(32))
+    def __repr__(self):
+        return "<Steel(pingming='%s',guige='%s')>" % (self.pingming,self.guige)

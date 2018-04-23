@@ -1,3 +1,4 @@
+import os
 import requests
 import time
 import random
@@ -8,13 +9,14 @@ from lxml import etree
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
-from models import Steel,create_database
+from .models import Steel,create_database
 
 
 ##获取登录cookies
 # login_url='https://passport.mysteel.com/loginJson.jsp?callback=loginJsn&my_username=18505518070&my_password=qgswzb&callbackJsonp=loginJsn&jumpPage=http%3A%2F%2Fwww.mysteel.com%2F&site=www.mysteel.com&my_rememberStatus=true&_=1524219625362'
 # se=requests.Session()
 # res=se.get(login_url)
+BASE_DIR=os.path.dirname(__file__)
 
 citys_url={
     'Nanjing':'http://list1.mysteel.com/market/p-228-15407-----0--------1.html',
@@ -55,7 +57,7 @@ class SteelCrawer:
         self.req = requests.Session()
         self.login()
         create_database(city)
-        engine=create_engine("sqlite:///steel/%s_steel.db"%city,echo=False)  # 不打印数据库存入数据信息
+        engine=create_engine("sqlite:///%s/steel/%s_steel.db"%(BASE_DIR,city),echo=False)  # 不打印数据库存入数据信息
         Session = sessionmaker(bind=engine)
         self.session = Session()
 
@@ -141,7 +143,7 @@ class SteelCrawer:
                 self.session.add(steel)
         else:
             print('Data already exists')
-            return 
+            return 'exists'
         self.session.commit()
         print('------->> 日期：{}， {} 条数据，存库成功！'.format(date.strftime('%Y-%m-%d %H:%M'),len(page_list)))
 
@@ -155,5 +157,10 @@ def run():
         date=data['datetime']
         detail_list=st.Parse(url)
         time.sleep(random.randint(1, 2))  #休眠
-        st.store(detail_list,date)
+        result=st.store(detail_list,date)
+        if result=='exists':
+            break
     print('ALL Complete-------------------------->')
+
+if __name__ == '__main__':
+    run()

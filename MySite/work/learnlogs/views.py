@@ -3,6 +3,8 @@ Django,learnlogs的视图函数
 """
 import markdown
 import logging
+import pandas as pd
+import numpy as np
 
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponseRedirect
@@ -12,9 +14,11 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
-from .models import Topic,Entry
+from .models import Topic,Entry,Data,Steel
 from .forms import NewTopicForm,NewEntryForm
 
+from sqlalchemy import create_engine,desc
+from sqlalchemy.orm import sessionmaker
 
 
 def index(request):
@@ -139,3 +143,25 @@ def search(request):
 def test(request):
 
     return render(request,"learnlogs/test.html")
+
+########
+
+def steeldata(request):
+    city='Nanjing'
+    engine=create_engine("sqlite:///learnlogs/steel/%s_steel.db"%city,echo=False) 
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    res=session.query(Steel).all()
+    res1=session.query(Steel).order_by(desc(Steel.time)).limit(30)
+    steel_data=[]
+    steel_data.append(['time','guige','caizhi','chandi','jiage','beizhu'])
+    for i in res1:
+        steel_data.append([i.time.strftime('%Y-%m-%d %H:%M:%S') ,i.guige,i.caizhi,i.chandi,i.jiage,i.beizhu])
+    dataframe=pd.DataFrame(steel_data[1:],columns=steel_data[0])
+
+    train_data = np.array(dataframe['time'].unique()).tolist()#list
+
+    data=Data()
+    data.a=[5, 20, 36, 10, 10, 20]
+    context={'data':data}
+    return render(request,"learnlogs/steeldata.html",context)
