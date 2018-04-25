@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from .models import Profile,Contact
+from .models import Profile,Contact,Friends
 
 
 ##注册到User，User、Profile合并
@@ -22,3 +22,7 @@ admin.site.register(Profile, ProfileAdmin)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ['user_from', 'user_to', 'created']
 admin.site.register(Contact, ContactAdmin)
+
+class FriendsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'birth_date', 'hobby']
+admin.site.register(Friends,FriendsAdmin)

@@ -26,6 +26,7 @@ urlpatterns = [
     path('learnlogs/',include('learnlogs.urls')),   #学习日志
     path('users/',include('users.urls')),   #用户
     path('love/',include('lovestory.urls')),   #个人
+    path('files/',include('files.urls')),   #文件系统
 
     path('comments/',include('django_comments.urls')),   #评论
 

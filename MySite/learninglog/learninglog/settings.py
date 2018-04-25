@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'learnlogs',
     'users',  #用户系统
     'lovestory','bootstrap3',
+    'files',
 
     'django_comments','django.contrib.sites', #评论系统
     'rest_framework',   #restful api

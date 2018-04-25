@@ -52,17 +52,22 @@ User.add_to_class('following',#关注谁
 
 
 
-
+GENDER_CHIOCE=(
+    ('FEMAIL','女'),
+    ("MAIL","男")
+    )
 
 class Friends(models.Model):
     """个人信息"""
     name=models.CharField(max_length=200)
     email=models.EmailField()
+    heats=models.FloatField(blank=True,null=True,default=5.0)#热度
     birth_date = models.DateField(null=True, blank=True)#生日
-    describe = models.TextField(max_length=500, blank=True)#个人介绍
-    gender = models.CharField(max_length=5,blank=True,null=True)##性别
+    gender = models.CharField(max_length=10,blank=True,null=True,choices=GENDER_CHIOCE)##性别
     hobby=models.CharField(max_length=200,blank=True)#爱好
     phone=models.CharField(max_length=20,blank=True,null=True)
     address=models.CharField(max_length=200,blank=True)#地址
+    identitycode=models.BigIntegerField(blank=True,null=True,)
+    describe = models.TextField(max_length=500, blank=True)#个人介绍
     #图片字段，上传之/media/...
     photo = models.ImageField(upload_to='users/%Y/%m/%d', blank=True,default='default.png')#头像

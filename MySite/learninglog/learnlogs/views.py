@@ -14,6 +14,7 @@ from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
 
 from .models import Topic,Entry
 from .forms import NewTopicForm,NewEntryForm
+from users.models import Friends
 
 
 
@@ -28,7 +29,9 @@ def index(request):
         customer=paginator.page(1)
     except EmptyPage:
         customer=paginator.page(paginator.num_pages)
-
+    if request.user.is_superuser:
+        friends=Friends.objects.all()
+        print(friends)
     if request.user.username =="":
         form=NewTopicForm()
         all_topic=Topic.objects.order_by('date_added')
