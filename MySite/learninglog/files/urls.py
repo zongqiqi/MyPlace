@@ -5,6 +5,6 @@ from django.conf.urls.static import static
 
 app_name='files'
 urlpatterns = [
-    path('<path:args>',views.index,name='index'),  
-
+    path('',views.index,name='index'),   #导航页面
+    path('<path:args>',views.detail,name='detail'),  #个人文件夹
     ]
