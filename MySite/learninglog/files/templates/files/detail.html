@@ -1,6 +1,20 @@
+{% load pagetag %}
+
 <p>detail.html</p>
 <p>Hello World</p>
 <br>
-<p>dirs:{{dirs}}</p>
+{% for dir in dirs %}
+    <p>dir_name:<a href="{{dir|filespath}}" target="_blank">{{dir|filesname}}</a></p>
+    <p>dir_name:{{dir|filespath}}</p>
+{% empty %}
+    <p>No dirs</p>
+{% endfor  %}
+
 <hr>
-<p>files:{{files}}</p>
+
+{% for file in files %}
+    <p>file_name:<a href="/media/files/{{file|filespath}}" target="_blank">{{file|filesname}}</a></p>
+    <p>file_path:{{file|filespath}}</p>
+{% empty %}
+    <p>No files</p>
+{% endfor  %}

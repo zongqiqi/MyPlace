@@ -25,8 +25,8 @@ def detail(request,args):
     if request.method != "POST":
         path=Path(settings.MEDIA_ROOT)/'files'/args
         if path.exists():##已存在个人目录
-            dirs=[ i.name for i in path.iterdir() if i.is_dir()] #文件夹
-            files=[ i.name for i in path.iterdir() if i.is_file()] #文件夹
+            dirs=[ i for i in path.iterdir() if i.is_dir()] #文件夹
+            files=[ i for i in path.iterdir() if i.is_file()] #文件夹
             context={'dirs':dirs,'files':files}
             return render(request,"files/detail.html",context)
         else:#不存在个人目录则返回错误
