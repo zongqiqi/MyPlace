@@ -1,20 +1,42 @@
-{% load pagetag %}
+{% load filesnamepath %}
 
-<p>detail.html</p>
-<p>Hello World</p>
-<br>
-{% for dir in dirs %}
-    <p>dir_name:<a href="{{dir|filespath}}" target="_blank">{{dir|filesname}}</a></p>
-    <p>dir_name:{{dir|filespath}}</p>
-{% empty %}
-    <p>No dirs</p>
-{% endfor  %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
 
-<hr>
+<body>
 
-{% for file in files %}
-    <p>file_name:<a href="/media/files/{{file|filespath}}" target="_blank">{{file|filesname}}</a></p>
-    <p>file_path:{{file|filespath}}</p>
-{% empty %}
-    <p>No files</p>
-{% endfor  %}
+    <p>detail.html</p>
+    <p>Hello World</p>
+    <br>
+
+
+    {% for dir in dirs %}
+        <p>dir_name:<a href="{{dir|filespath}}" target="_blank">{{dir|filesname}}</a></p>
+        <!-- <p>dir_name:{{dir|filespath}}</p> -->
+    {% empty %}
+        <p>No dirs</p>
+    {% endfor  %}
+
+    <hr>
+
+    {% for file in files %}
+        <p>file_name:<a href="/media/files/{{file|filespath}}" target="_blank">{{file|filesname}}</a></p>
+        <!-- <p>file_path:{{file|filespath}}</p> -->
+    {% empty %}
+        <p>No files</p>
+    {% endfor  %}
+
+
+
+
+    <form method="post" enctype="multipart/form-data" action="{{urlpath}}">
+        {% csrf_token %}
+        <input type="file" name = "files" id="file" multiple>
+    <input type="submit" value="ok"/>
+
+
+</body>
+</html>

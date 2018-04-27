@@ -22,18 +22,26 @@ def index(request):
 @login_required
 def detail(request,args):
     """个人文件夹页面"""
+    path=Path(settings.MEDIA_ROOT)/'files'/args
     if request.method != "POST":
-        path=Path(settings.MEDIA_ROOT)/'files'/args
         if path.exists():##已存在个人目录
             dirs=[ i for i in path.iterdir() if i.is_dir()] #文件夹
             files=[ i for i in path.iterdir() if i.is_file()] #文件夹
-            context={'dirs':dirs,'files':files}
+            context={'dirs':dirs,'files':files,'urlpath':'/files/'+args}
             return render(request,"files/detail.html",context)
         else:#不存在个人目录则返回错误
             #path.mkdir()
-            #raise Http404("您所访问的目录不存在")
-            pass
-            
+            raise Http404("您所访问的目录不存在")
+            #pass
+    else:
+        files=[i for i in request.FILES.getlist('files')]
+        for file in files:
+            filename=file.name
+            file_path=path/filename
+            with open(file_path, 'wb') as pic:
+                for c in file.chunks():
+                    pic.write(c)
+        return HttpResponseRedirect('/files/'+args)
 
     context={'args':args}
     return render(request,"files/detail.html",context)
