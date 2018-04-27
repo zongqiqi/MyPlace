@@ -16,12 +16,15 @@ def index(request):
     if request.user.is_authenticated:##已登录用户
 
         return HttpResponseRedirect('/files/'+request.user.username)
-    context={'args':path}
+    context={'args':args}
     return render(request,"files/index.html",context)
 
 @login_required
 def detail(request,args):
     """个人文件夹页面"""
+    selfpath=Path(settings.MEDIA_ROOT)/'files'/request.user.username
+    if not selfpath.exists():
+        selfpath.mkdir(parents=True, exist_ok=True)
     path=Path(settings.MEDIA_ROOT)/'files'/args
     if request.method != "POST":
         if path.exists():##已存在个人目录
@@ -38,6 +41,7 @@ def detail(request,args):
         for file in files:
             filename=file.name
             file_path=path/filename
+            #file_path.touch(exist_ok = True)
             with open(file_path, 'wb') as pic:
                 for c in file.chunks():
                     pic.write(c)
