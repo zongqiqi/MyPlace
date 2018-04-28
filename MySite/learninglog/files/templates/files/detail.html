@@ -1,42 +1,63 @@
+{% extends "learnlogs/base.html" %}
 {% load filesnamepath %}
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-</head>
-
-<body>
-
-    <p>detail.html</p>
-    <p>Hello World</p>
-    <br>
+{% load staticfiles %}
 
 
+{% block head %}
+<link href="{% static 'css_js/mycss.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="container" >   
+
+<div class="col-md-10 col-md-offset-1" >
+
+    <ul class="breadcrumb" style="background: none;">
+        {% for i in urlpath|parpath %}
+        <li><a href="{{i.path}}">{{i.name}}</a></li>
+        {% endfor %}
+        <!-- <li><a href="#">{{urlpath|parpath}}</a></li> -->
+    </ul>
+
+    <div>
     {% for dir in dirs %}
-        <p>dir_name:<a href="{{dir|filespath}}" target="_blank">{{dir|filesname}}</a></p>
-        <!-- <p>dir_name:{{dir|filespath}}</p> -->
-    {% empty %}
-        <p>No dirs</p>
+        <div style="float:left;">
+            <p><a href="{{dir|dirspath}}" target="_blank">
+                <img src="{% static 'dirs.png' %}" class="img-rounded">
+                </a><div class="caption">{{dir|filesname}}</div></p>
+        </div>
     {% endfor  %}
+    </div>
+    <hr style="clear:both;">
 
-    <hr>
-
-    {% for file in files %}
-        <p>file_name:<a href="/media/files/{{file|filespath}}" target="_blank">{{file|filesname}}</a></p>
-        <!-- <p>file_path:{{file|filespath}}</p> -->
-    {% empty %}
-        <p>No files</p>
-    {% endfor  %}
-
-
-
-
-    <form method="post" enctype="multipart/form-data" action="{{urlpath}}">
+    <div style="clear:both;">
+        {% for file in files %}
+            <div style="float:left;">
+                <p><a href="/media/{{file|filespath}}" target="_blank">
+                   <img src="{% static 'files.png' %}" class="img-rounded" width="50%" height="50%">
+               </a><div class="caption">{{file|filesname}}</div></p>
+            </div>
+        {% endfor  %}
+        <div style="float:left;">
+            <form method="post" enctype="multipart/form-data" action="{{urlpath}}">
+                {% csrf_token %}
+                <label for="file"><img src="{% static 'add.png' %}" class="img-rounded" width="50%" height="50%" onmouseover="this.src='{% static "add2.png" %}'" onmouseout="this.src='{% static "add.png" %}'">
+                    </label><div class="caption">
+                <input type="file" name = "files" id="file" multiple style="display:none">
+                <label for="ok" class="okbutton" style="margin-left:auto;margin-right:auto;padding-left: 17px;">确认</label>
+                <input type="submit" value="ok" id='ok' style="display:none"/></div>
+            </form>
+        </div>
+    </div>
+<!--     <form method="post" enctype="multipart/form-data" action="{{urlpath}}">
         {% csrf_token %}
-        <input type="file" name = "files" id="file" multiple>
-    <input type="submit" value="ok"/>
-
-
-</body>
-</html>
+        <label for="file" class=" btn btn-default">添加文件</label>
+        <input type="file" name = "files" id="file" multiple style="display:none">
+        <label for="ok" class=" btn btn-default">确认</label>
+        <input type="submit" value="ok" id='ok' style="display:none"/>
+    </form> -->
+</div></div>
+{% endblock %}
