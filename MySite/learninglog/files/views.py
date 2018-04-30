@@ -9,7 +9,6 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from django.conf import settings
-# Create your views here.
 
 def index(request):
     """登录页面，已登录转向本人文件夹"""
