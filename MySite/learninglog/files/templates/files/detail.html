@@ -8,18 +8,15 @@
 {% endblock %}
 
 
-
 {% block content %}
 
-<div class="container" >   
-
+<div class="container">   
 <div class="col-md-10 col-md-offset-1" >
 
     <ul class="breadcrumb" style="background: none;">
         {% for i in urlpath|parpath %}
         <li><a href="{{i.path}}">{{i.name}}</a></li>
         {% endfor %}
-        <!-- <li><a href="#">{{urlpath|parpath}}</a></li> -->
     </ul>
 
     <div>
@@ -52,12 +49,6 @@
             </form>
         </div>
     </div>
-<!--     <form method="post" enctype="multipart/form-data" action="{{urlpath}}">
-        {% csrf_token %}
-        <label for="file" class=" btn btn-default">添加文件</label>
-        <input type="file" name = "files" id="file" multiple style="display:none">
-        <label for="ok" class=" btn btn-default">确认</label>
-        <input type="submit" value="ok" id='ok' style="display:none"/>
-    </form> -->
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> 
 </div></div>
 {% endblock %}
