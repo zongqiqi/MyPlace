@@ -24,7 +24,7 @@ def detail(request,args):
     """个人文件夹页面"""
     selfpath=Path(settings.MEDIA_ROOT)/'files'/request.user.username
     if not selfpath.exists():
-        selfpath.mkdir(parents=True, exist_ok=True)
+        selfpath.mkdir(parents=True)
     path=Path(settings.MEDIA_ROOT)/Path('files')/Path(args)
     if request.method != "POST":
         if path.exists():##已存在个人目录

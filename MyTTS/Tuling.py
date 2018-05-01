@@ -51,7 +51,7 @@ def tuling(text,loc='安徽省安庆市'):
         elif r.json()['code'] == 40004:
             continue
         else:
-            return '图灵识别出现问题（%s）'%r.json()['code']
+            return '图灵识别出现问题（错误码:%s）'%r.json()['code']
     return '今日识别资源全部使用完毕（5k）'
 
 

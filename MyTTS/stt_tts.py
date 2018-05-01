@@ -159,22 +159,17 @@ class BaiDuVoice:
 bvapi=BaiDuVoice()
 voice=Voice()
 
-
 ########****************************************************************
 class tts_play(threading.Thread):
-    '''语音转文字并播放'''
     def __init__(self,dictd,text='你忘记输入文字了，笨蛋'):
         super(tts_play, self).__init__()
         self.text=text
         self.start()
         self.dictd=dictd
-
     def run(self):
-        '''重写run方法'''
         subthread = threading.Thread(target=self.play,)
         subthread.setDaemon(True)
         subthread.start()
-
     def play(self):
         voice.play(voice.save(bvapi.tts(self.text)),self.dictd)
 
@@ -185,8 +180,8 @@ class tts_play(threading.Thread):
 def commute(queue,dictd):
     """语音解析"""
     tts_play(dictd,'语音识别开始')
-    stop_play=False
     while True:
+    # while dictd['recording']:
         filename=queue.get(True)
         t=bvapi.stt(filename) #语音转文字
         if t['err_no'] == 0 :
@@ -200,9 +195,13 @@ def commute(queue,dictd):
             cut=set(jieba.cut(t['result'][0])) #结巴分词
             print(cut)
             orders=cut&set(WordFunc.TestDict.keys())   #求识别结果和函数的的交集
+##--------------------------------------------------------------------------------
+##语音命令
             if orders:
                 for order in orders:
-                    WordFunc.TestDict[order](dictd)       #执行函数
+                    result=WordFunc.TestDict[order](dictd)       #执行函数
+                    tts_play(dictd,result)
+##--------------------------------------------------------------------------------
             else:##如果命令不在WordFunc中，则调用图灵机器人进行回复
                 res=Tuling.tuling(t['result'])
                 print(res)

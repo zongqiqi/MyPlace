@@ -4,7 +4,7 @@
 """
 import functools
 
-from stt_tts import tts_play
+# from stt_tts import tts_play
 
 TestDict={}
 
@@ -25,7 +25,11 @@ def TextFunc(text):
 
 @TextFunc('王晓')
 def func(dictd):
-    tts_play(dictd,"王晓是你的好朋友呀")
+    return "王晓是你的好朋友呀"
+
+@TextFunc('开始')
+def func(dictd):
+    return "好的"
 
 if __name__ == '__main__':
     print(TestDict)
