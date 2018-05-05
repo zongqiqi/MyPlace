@@ -15,3 +15,6 @@ build
 db.ini
 /venv/*
 /MyTTS/files/*
+
+
+/MyTools/settings.py
