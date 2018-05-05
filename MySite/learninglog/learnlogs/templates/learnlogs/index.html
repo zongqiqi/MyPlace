@@ -34,7 +34,7 @@
                {% for entry in entries %}
                     <div class="col-md-12 blogShort">
                         <h2>{{ entry.name }}</h2>
-                        <p class="pam">{{entry.text|truncatewords:"30"}}</p>
+                        <p class="pam">{{entry.text|cut:"`"|cut:"#"|truncatewords:"30" }}</p>
                         <span class="glyphicon glyphicon-time"></span><span>{{ entry.date_added }}  -- <a href="{% url 'users:author_profile' entry.owner.id %}">{{entry.owner.username}}</a></span>
                         <a class="btn btn-blog pull-right marginBottom10" href="{% url 'learnlogs:entry' entry.id %}">READ MORE</a> 
                     </div>
