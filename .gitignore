@@ -18,4 +18,6 @@ db.ini
 
 
 /MyTools/settings.py
-/MyCrawler/guangmo_pic/pics
+/MyCrawler/guangmo_pic/douban
+/MyCrawler/guangmo_pic/weibo
+/MyCrawler/guangmo_pic/wangyi
