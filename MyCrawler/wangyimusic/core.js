@@ -11820,6 +11820,9 @@ setMaxDigits(20), dpl10 = 15, lr10 = biFromNumber(1e15), hexatrigesimalToChar = 
                 iv: d,
                 mode: CryptoJS.mode.CBC
             });
+        // window.console.info(b.toString()),
+        // window.console.info(c.toString()),
+        window.console.info(f.toString())
         return f.toString()
     }
 
@@ -11829,14 +11832,16 @@ setMaxDigits(20), dpl10 = 15, lr10 = biFromNumber(1e15), hexatrigesimalToChar = 
     }
 
     function d(d, e, f, g) {
-        window.console.info(g)
         var h = {},
-            i = a(16);
-        return h.encText = b(d, g), h.encText = b(h.encText, i), h.encSecKey = c(i, e, f), h
+            i = "FFFFFFFFFFFFFFFF";
+            //window.console.info(d)
+            h.encText = b(d, g);
+            //window.console.info(h.encText)
+            h.encText = b(h.encText, i);
+        return h.encText , h.encSecKey = c(i, e, f), h
     }
 
     function e(a, b, d, e) {
-
         var f = {};
         return f.encText = c(a + e, b, d), f
     }
@@ -11947,6 +11952,7 @@ setMaxDigits(20), dpl10 = 15, lr10 = biFromNumber(1e15), hexatrigesimalToChar = 
             e2x.method = "post";
             delete e2x.query;
             var bBj7c = window.asrsea(JSON.stringify(j2x), bwA5F(["流泪", "强"]), bwA5F(Uf8X.md), bwA5F(["爱心", "女孩", "惊恐", "大笑"]));
+            
             e2x.data = k2x.cC3x({
                 params: bBj7c.encText,
                 encSecKey: bBj7c.encSecKey
