@@ -3,6 +3,7 @@ import time
 import random
 import requests
 from lxml import etree
+import pickle
 
 init_url="http://www.stats.gov.cn/tjsj/tjbz/tjyqhdmhcxhfdm/2016/"
 headers={
@@ -33,6 +34,7 @@ def get_provinces():
     return provinces
 
 def get_citys():
+    """抓取统计局下的城市信息"""
     data={}
     html=requests.get(init_url,headers=headers).content
     selector = etree.HTML(html)  
@@ -57,5 +59,17 @@ def get_citys():
     city.append('天津市')
     city.append('重庆市')
     return city
-citys=get_citys()
-print(len(city))
+
+if __name__ == '__main__':
+    provinces=get_provinces()
+    citys=get_citys()
+
+#写数据
+    data={}
+    data['provinces']=provinces
+    data['citys']=citys
+    with open('data.txt','wb') as f:
+        pickle.dump(data,f)
+#读数据
+    # with open('data.txt','rb') as f:
+    #     data = pickle.load(f)
