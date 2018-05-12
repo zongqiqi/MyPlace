@@ -4,11 +4,11 @@
 settings为同目录下的一个配置文件，主要是账户信息，密码，进入https://www.twilio.com申请即可
 """
 
-from settings import account_sid,auth_token,From,MyNumber,XiaoNumber
+from settings import account_sid,auth_token,From,MyNumber,XiaoNumber,HouSongyan,Wangdong
 
 from twilio.rest import Client
 
-def sendsms(number=mynumber,text="Hello World!"):
+def sendsms(number=MyNumber,text="Hello World!"):
     """
     发送者的号码随机，number为收短信者的号码，短信有前缀标志，收信人的号码需验证
     https://www.twilio.com/console/phone-numbers/verified：添加号码
@@ -23,4 +23,7 @@ def sendsms(number=mynumber,text="Hello World!"):
     print(message.sid)
 
 if __name__ == '__main__':
-    sendsms()
+    text="This means I can interrupt you at any time ahhh"
+    textlists=text.split()*100
+    for text in textlists:
+        sendsms(text=text)

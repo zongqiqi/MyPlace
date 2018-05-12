@@ -185,21 +185,22 @@ def commute(queue,dictd):
         filename=queue.get(True)
         t=bvapi.stt(filename) #语音转文字
         if t['err_no'] == 0 :
-            print(t['result'])  # 打印文字
-            if '停止' in t['result'][0]:
+            text=t['result'][0]
+            print(text)  # 打印文字
+            if '停止' in text:
                 dictd['stop']=True
-            elif '开始' in t['result'][0]:
+            elif '开始' in text:
                 dictd['stop']=False
-            elif '退出程序' in t['result'][0]:
+            elif '退出程序' in text:
                 dictd['recording']=False
-            cut=set(jieba.cut(t['result'][0])) #结巴分词
+            cut=set(jieba.cut(text)) #结巴分词
             print(cut)
             orders=cut&set(WordFunc.TestDict.keys())   #求识别结果和函数的的交集
 ##--------------------------------------------------------------------------------
 ##语音命令
             if orders:
                 for order in orders:
-                    result=WordFunc.TestDict[order](dictd)       #执行函数
+                    result=WordFunc.TestDict[order](text)       #执行函数
                     tts_play(dictd,result)
 ##--------------------------------------------------------------------------------
             else:##如果命令不在WordFunc中，则调用图灵机器人进行回复

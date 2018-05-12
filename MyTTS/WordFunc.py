@@ -24,11 +24,11 @@ def TextFunc(text):
 ##---------------------------------------------------
 
 @TextFunc('王晓')
-def func(dictd):
+def func(text):
     return "王晓是你的好朋友呀"
 
 @TextFunc('开始')
-def func(dictd):
+def func(text):
     return "好的"
 
 if __name__ == '__main__':
