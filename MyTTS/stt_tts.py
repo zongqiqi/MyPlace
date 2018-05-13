@@ -179,6 +179,7 @@ class tts_play(threading.Thread):
 
 def commute(queue,dictd):
     """语音解析"""
+    print("语音识别开始")
     tts_play(dictd,'语音识别开始')
     while True:
     # while dictd['recording']:

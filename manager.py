@@ -6,7 +6,7 @@ from MyCrawler.steel.steel import run
 # run()
 
 #MyTTS
-# os.system("python3 MyTTS/stt_tts.py")
+os.system("python3 MyTTS/stt_tts.py")
 
-os.system('venv/Scripts/activate')  ##不成功
-os.system('python3 MySite/learninglog/manage.py runserver')
+#os.system('venv/Scripts/activate')  ##不成功
+#os.system('python MySite/learninglog/manage.py runserver')
