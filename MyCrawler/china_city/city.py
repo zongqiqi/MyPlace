@@ -60,11 +60,29 @@ def get_citys():
     city.append('重庆市')
     return city
 
+def pro_filter(pro_list):
+    for index,value in enumerate(pro_list):
+        if '省' in value or '市' in value:
+            pro_list[index]=value[:-1]
+        elif '自治区' in value:
+            pro_list[index]=value[:2]
+    return pro_list
+
+def city_filter(city_list):
+    for index,value in enumerate(city_list):
+        if '市' in value:
+            city_list[index]=value[:-1]
+        elif '自治区' in value:
+            city_list[index]=value[:2]
+    return city_list
 if __name__ == '__main__':
     provinces=get_provinces()
     citys=get_citys()
 
 #写数据
+    provinces=pro_filter(provinces)
+    citys=city_filter(citys)
+    #print(citys)
     data={}
     data['provinces']=provinces
     data['citys']=citys
